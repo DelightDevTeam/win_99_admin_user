@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Api\V1\Webhook;
 
-use App\Enums\SlotWebhookResponseCode;
-use App\Enums\TransactionName;
-use App\Http\Controllers\Api\V1\Webhook\Traits\UseWebhook;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Slot\SlotWebhookRequest;
-use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
+use App\Enums\TransactionName;
+use App\Services\WalletService;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Enums\SlotWebhookResponseCode;
 use App\Services\Slot\SlotWebhookService;
 use App\Services\Slot\SlotWebhookValidator;
-use App\Services\WalletService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Slot\SlotWebhookRequest;
+use App\Http\Controllers\Api\V1\Webhook\Traits\UseWebhook;
 
 class JackPotController extends Controller
 {
