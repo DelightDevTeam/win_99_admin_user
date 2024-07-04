@@ -13,13 +13,19 @@
         <span class="sidenav-normal  ms-2  ps-1"> Profile </span>
       </a>
     </li>
-    {{-- <li class="nav-item">
+    <li class="nav-item">
+      <a class="nav-link text-white " href="{{ url('admin/login-logs')}}">
+        <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
+        <span class="sidenav-normal  ms-2  ps-1"> LoginLogs </span>
+      </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.report.index')}}">
         <span class="sidenav-mini-icon"> <i class="fa-solid fa-chart-column"></i> </span>
         <span class="sidenav-normal  ms-2  ps-1"> Win/lose Report </span>
       </a>
-    </li> --}}
-    {{-- @can('payment_type')
+    </li>
+    @can('payment_type')
         <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.userPayment.index') }}">
               <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
@@ -27,38 +33,48 @@
             </a>
           </li>
     @endcan
-    @can('withdraw_requests')
+
+    @can('payment_type')
+        <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.paymentType.index') }}">
+              <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1">PaymentType</span>
+            </a>
+          </li>
+    @endcan
+
+    {{--  @can('withdraw_requests')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.agent.withdraw')}}">
         <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
         <span class="sidenav-normal  ms-2  ps-1">WithDraw Requests</span>
       </a>
     </li>
-    @endcan
-    @can('deposit_requests')
+    @endcan --}}
+    {{-- @can('deposit_requests')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.agent.deposit')}}">
         <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
         <span class="sidenav-normal  ms-2  ps-1">Deposit Requests</span>
       </a>
     </li>
-    @endcan
-    @can('master_index')
+    @endcan --}}
+    {{-- @can('master_index')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.master.index')}}">
         <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
         <span class="sidenav-normal  ms-2  ps-1"> Master List</span>
       </a>
     </li>
-    @endcan
-    @can('agent_index')
+    @endcan --}}
+    {{-- @can('agent_index')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.agent.index')}}">
         <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
         <span class="sidenav-normal  ms-2  ps-1">Agent List</span>
       </a>
     </li>
-    @endcan
+    @endcan --}}
     @can('player_index')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.player.index')}}">
@@ -66,8 +82,8 @@
         <span class="sidenav-normal  ms-2  ps-1">Player List</span>
       </a>
     </li>
-    @endcan
-    <li class="nav-item">
+    @endcan 
+    {{-- <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.transferLog')}}">
         <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
         <span class="sidenav-normal  ms-2  ps-1">Transfer Log</span>

@@ -19,7 +19,7 @@
         </div>
         <br>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
+    {{-- <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
         <div class="card ">
             <div class="card-header p-3 pt-2 bg-transparent">
                 <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
@@ -42,7 +42,7 @@
                 <p class="mb-0 ">Just updated</p>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
         <div class="card ">
             <div class="card-header p-3 pt-2 bg-transparent">

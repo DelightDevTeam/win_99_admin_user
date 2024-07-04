@@ -66,6 +66,7 @@ class DatabaseSeeder extends Seeder
             YesGetRichTablesSeeder::class,
             Live22SMTablesSeeder::class,
             BannerAdsSeeder::class,
+            BankTableSeeder::class,
 
         ]);
 

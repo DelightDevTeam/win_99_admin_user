@@ -3,18 +3,20 @@
 namespace App\Models;
 
 use App\Enums\UserType;
-use App\Events\UserCreatedEvent;
 use App\Models\Admin\Bank;
-use App\Models\Admin\Permission;
 use App\Models\Admin\Role;
+use App\Models\UserPayment;
+use App\Events\UserCreatedEvent;
+use App\Models\Admin\Permission;
+use Laravel\Sanctum\HasApiTokens;
 use App\Models\SeamlessTransaction;
 use Bavix\Wallet\Interfaces\Wallet;
+use Illuminate\Support\Facades\Auth;
 use Bavix\Wallet\Traits\HasWalletFloat;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements Wallet
 {
@@ -157,5 +159,10 @@ class User extends Authenticatable implements Wallet
     public function bank()
     {
         return $this->belongsTo(Bank::class);
+    }
+
+    public function userPayments(): HasMany
+    {
+        return $this->hasMany(UserPayment::class);
     }
 }

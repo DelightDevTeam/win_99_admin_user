@@ -16,13 +16,13 @@ class UserPaymentTableSeeder extends Seeder
             [
                 'account_name' => 'Testing KPay Account',
                 'account_no' => '1278767876767',
-                'user_id' => 3,
+                'user_id' => 2,
                 'payment_type_id' => 1,
             ],
             [
                 'account_name' => 'Testing Wave Account',
                 'account_no' => '1298789986678656',
-                'user_id' => 3,
+                'user_id' => 2,
                 'payment_type_id' => 2,
             ],
         ];

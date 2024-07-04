@@ -51,8 +51,8 @@ class HomeController extends Controller
             })->count();
         };
 
-        $master_count = $getUserCounts('Master');
-        $agent_count = $getUserCounts('Agent');
+        //$master_count = $getUserCounts('Master');
+        //$agent_count = $getUserCounts('Agent');
         $player_count = $getUserCounts('Player');
 
         //$provider_balance = (new AppSetting)->provider_initial_balance + SeamlessTransaction::sum('transaction_amount');
@@ -61,8 +61,8 @@ class HomeController extends Controller
 
         return view('admin.dashboard', compact(
             'provider_balance',
-            'master_count',
-            'agent_count',
+            //'master_count',
+            //'agent_count',
             'player_count',
             'user'
         ));
@@ -87,6 +87,13 @@ class HomeController extends Controller
     public function logs($id)
     {
         $logs = UserLog::with('user')->where('user_id', $id)->get();
+
+        return view('admin.logs', compact('logs'));
+    }
+
+    public function Loginlogs()
+    {
+        $logs = UserLog::with('user')->get();
 
         return view('admin.logs', compact('logs'));
     }
