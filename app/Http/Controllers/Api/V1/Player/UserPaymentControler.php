@@ -15,11 +15,11 @@ class UserPaymentControler extends Controller
 {
     use HttpResponses;
 
-    public function agentPayment()
+    public function adminPaymentType()
     {
         $player = Auth::user();
 
-        $data = UserPayment::with('paymentType', 'paymentType.paymentImages')->where('user_id', $player->agent_id)->get();
+        $data = UserPayment::with('paymentType')->where('user_id', $player->agent_id)->get();
 
         return $this->success($data, 'Agent Payment List');
 

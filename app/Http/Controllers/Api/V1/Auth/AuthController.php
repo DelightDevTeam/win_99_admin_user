@@ -24,9 +24,9 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->only('user_name', 'password');
+        $credentials = $request->only('phone', 'password');
 
-        $user = User::where('user_name', $request->user_name)->first();
+        $user = User::where('phone', $request->phone)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
             return $this->error('', 'Credentail does not match!', 401);
@@ -40,7 +40,7 @@ class AuthController extends Controller
             return $this->error('', 'Credentials do not match!', 401);
         }
 
-        $user = User::where('user_name', $request->user_name)->first();
+        $user = User::where('phone', $request->phone)->first();
         if (! $user->hasRole('Player')) {
             return $this->error('', 'You are not a player!', 401);
         }
@@ -58,7 +58,11 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string' ],
-            'phone' => 'required|regex:/(09)[0-9]{9}/',
+            'phone' => [
+                'required',
+                'regex:/^(09)[0-9]{7,11}$/',
+                'numeric',
+            ],
             'password' => ['required', 'confirmed']
         ]);
 
@@ -70,7 +74,6 @@ class AuthController extends Controller
             'agent_id' => self::ADMIN,
             'type' => UserType::Player,
         ]);
-
         return $this->success(new UserResource($user),'User Register Successfully',
         );
     }
@@ -127,7 +130,6 @@ class AuthController extends Controller
 
     public function profile(ProfileRequest $request)
     {
-
         $player = Auth::user();
         $player->update([
             'name' => $request->name,

@@ -22,12 +22,12 @@
       <div class="card-header pb-0">
         <div class="d-lg-flex">
           <div>
-            <h5 class="mb-0">Bank Listing</h5>
+            <h5 class="mb-0">Banner Text Dashboards</h5>
 
           </div>
           <div class="ms-auto my-auto mt-lg-0 mt-4">
             <div class="ms-auto my-auto">
-              <a href="{{ route('admin.userPayment.create') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Account</a>
+              <a href="{{ route('admin.text.create') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Banner Text</a>
               <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv" type="button" name="button">Export</button>
             </div>
           </div>
@@ -37,24 +37,24 @@
         <table class="table table-flush" id="banners-search">
           <thead class="thead-light">
             <tr>
-              <th>ID</th>
-              <th>Payment Type</th>
-              <th>Account Name</th>
-              <th>Account No</th>
-              <th>Action</th>
+              <th>#</th>
+              <th>Text</th>
+              <th>Created At</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($paymentTypes as $type)
+            @foreach($texts as $key => $text)
             <tr>
-              <td class="text-sm font-weight-normal">{{ $loop->iteration }}</td>
-              <td class="text-sm">{{$type->paymentType->name}}</td>
-              <td class="text-sm font-weight-normal">{{ $type->account_name }}</td>
-              <td class="text-sm font-weight-normal">{{ $type->account_no }}</td>
+              <td class="text-sm font-weight-normal">{{ ++$key }}</td>
+              <td>{{ $text->text }}</td>
+              <td class="text-sm font-weight-normal">{{ $text->created_at->format('M j, Y') }}</td>
               <td>
-                <a href="{{ route('admin.userPayment.edit', $type->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Edit Bank"><i class="material-icons-round text-secondary position-relative text-lg">mode_edit</i></a>
-             
-                <form class="d-inline" action="{{ route('admin.userPayment.destroy', $type->id) }}" method="POST">
+                <a href="{{ route('admin.text.edit', $text->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Edit Banner"><i class="material-icons-round text-secondary position-relative text-lg">mode_edit</i></a>
+                <a href="{{ route('admin.text.show', $text->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Preview Banner Detail">
+                  <i class="material-icons text-secondary position-relative text-lg">visibility</i>
+                </a>
+                <form class="d-inline" action="{{ route('admin.text.destroy', $text->id) }}" method="POST">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="transparent-btn" data-bs-toggle="tooltip" data-bs-original-title="Delete Banner">

@@ -119,77 +119,7 @@ class PermissionsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'title' => 'agent_index',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'agent_create',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'agent_store',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'agent_edit',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'agent_update',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'agent_show',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'agent_delete',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
                 'title' => 'transfer_log',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'master_index',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'master_create',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'master_store',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'master_edit',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'master_update',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'master_show',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'master_delete',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

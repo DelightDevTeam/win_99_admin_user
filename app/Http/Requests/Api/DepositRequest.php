@@ -26,7 +26,6 @@ class DepositRequest extends FormRequest
             'user_payment_id' => ['required'],
             'amount' => ['required', 'integer', 'min:1000'],
             'refrence_no' => ['required', 'numeric', 'digits:4'],
-            'note' => ['nullable', 'string'],
         ];
     }
 }

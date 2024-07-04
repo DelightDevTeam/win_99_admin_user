@@ -36,7 +36,6 @@
               <th>ID</th>
               <th>Name</th>
               <th>Image</th>
-              <th>Banner</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -45,15 +44,11 @@
         @foreach($paymentTypes as $type)
             <tr>
                 <td class="text-sm font-weight-normal">{{ $loop->iteration }}</td>
-                <td class="text-sm">{{ $type->paymentType->name ?? 'N/A' }}</td>
+                <td class="text-sm">{{ $type->name  }}</td>
                 <td>
-                    <img src="{{ asset('assets/img/paymentType/' . ($type->paymentType->image ?? 'default.png')) }}" alt="" width="100px">
+                    <img src="{{ asset('assets/img/paymentType/' . $type->image) }}" alt="" width="100px">
                 </td>
-                <td>
-                    @foreach ($type->paymentImages ?? [] as $payment)
-                        <img src="{{ asset('assets/img/paymentType/banners/' . ($payment->image ?? 'default.png')) }}" alt="" width="100px">
-                    @endforeach
-                </td>
+              
                 <td>
                     <a href="{{ route('admin.paymentType.edit', $type->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Edit Bank">
                         <i class="material-icons-round text-secondary position-relative text-lg">mode_edit</i>

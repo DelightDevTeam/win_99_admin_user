@@ -33,48 +33,6 @@
             </a>
           </li>
     @endcan
-
-    @can('payment_type')
-        <li class="nav-item ">
-            <a class="nav-link text-white " href="{{ route('admin.paymentType.index') }}">
-              <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
-              <span class="sidenav-normal  ms-2  ps-1">PaymentType</span>
-            </a>
-          </li>
-    @endcan
-
-    {{--  @can('withdraw_requests')
-    <li class="nav-item">
-      <a class="nav-link text-white " href="{{ route('admin.agent.withdraw')}}">
-        <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1">WithDraw Requests</span>
-      </a>
-    </li>
-    @endcan --}}
-    {{-- @can('deposit_requests')
-    <li class="nav-item">
-      <a class="nav-link text-white " href="{{ route('admin.agent.deposit')}}">
-        <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1">Deposit Requests</span>
-      </a>
-    </li>
-    @endcan --}}
-    {{-- @can('master_index')
-    <li class="nav-item">
-      <a class="nav-link text-white " href="{{ route('admin.master.index')}}">
-        <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1"> Master List</span>
-      </a>
-    </li>
-    @endcan --}}
-    {{-- @can('agent_index')
-    <li class="nav-item">
-      <a class="nav-link text-white " href="{{ route('admin.agent.index')}}">
-        <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1">Agent List</span>
-      </a>
-    </li>
-    @endcan --}}
     @can('player_index')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.player.index')}}">
@@ -83,14 +41,9 @@
       </a>
     </li>
     @endcan 
-    {{-- <li class="nav-item">
-      <a class="nav-link text-white " href="{{ route('admin.transferLog')}}">
-        <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1">Transfer Log</span>
-      </a>
-    </li> --}}
+ 
     <hr class="horizontal light mt-0">
-    {{-- @can('admin_access')
+    @can('admin_access')
     <li class="nav-item">
       <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white " aria-controls="dashboardsExamples" role="button" aria-expanded="false">
         <i class="material-icons py-2">settings</i>
@@ -111,10 +64,10 @@
               <span class="sidenav-normal  ms-2  ps-1"> Banner </span>
             </a>
           </li>
-                    <li class="nav-item ">
+          <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.adsbanners.index') }}">
               <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
-              <span class="sidenav-normal  ms-2  ps-1"> Ads Banner </span>
+              <span class="sidenav-normal  ms-2  ps-1"> PopUp Ads </span>
             </a>
           </li>
           <li class="nav-item ">
@@ -128,12 +81,6 @@
             <a class="nav-link text-white " href="{{ route('admin.promotions.index') }}">
               <span class="sidenav-mini-icon"> <i class="fas fa-gift"></i> </span>
               <span class="sidenav-normal  ms-2  ps-1"> Promotions </span>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link text-white " href="{{ route('admin.products.index') }}">
-            <span class="sidenav-mini-icon">P</span>
-              <span class="sidenav-normal  ms-2  ps-1"> Product </span>
             </a>
           </li>
           <li class="nav-item ">
@@ -152,8 +99,7 @@
         </ul>
       </div>
     </li>
-    @endcan --}}
-    <li class="nav-item">
+    @endcan
       <a href="{{ route('logout') }}" onclick="event.preventDefault();
       document.getElementById('logout-form').submit();" class="nav-link text-white">
         <span class="sidenav-mini-icon"> <i class="fas fa-right-from-bracket text-white"></i> </span>

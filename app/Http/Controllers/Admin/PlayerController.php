@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Player;
+namespace App\Http\Controllers\Admin;
 
 use App\Enums\TransactionName;
 use App\Enums\UserType;
@@ -87,7 +87,7 @@ class PlayerController extends Controller
                 $inputs,
                 [
                     'password' => Hash::make($inputs['password']),
-                    'agent_id' => Auth()->user()->id,
+                    'agent_id' => Auth()->id(),
                     'type' => UserType::Player,
                 ]
             );

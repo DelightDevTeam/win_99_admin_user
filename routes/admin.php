@@ -1,11 +1,18 @@
 <?php
+
+use App\Http\Controllers\Admin\BannerAdsController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BannerTextController;
+use App\Http\Controllers\Admin\GameListController;
+use App\Http\Controllers\Admin\GameTypeProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\PaymentTypeController;
 use App\Http\Controllers\Admin\UserPaymentController;
-use App\Http\Controllers\Admin\Player\PlayerController;
+use App\Http\Controllers\Admin\PlayerController;
+use App\Http\Controllers\Admin\PromotionController;
 
 Route::group([
     'prefix' => 'admin', 'as' => 'admin.',
@@ -21,6 +28,23 @@ Route::group([
         ->name('profile.updatePassword');
     Route::resource('userPayment', UserPaymentController::class);
     Route::resource('paymentType', PaymentTypeController::class);
+    Route::resource('banners', BannerController::class);
+    Route::resource('text', BannerTextController::class);
+    Route::resource('promotions', PromotionController::class);
+    Route::resource('adsbanners', BannerAdsController::class);
+    Route::get('gametypes', [GameTypeProductController::class, 'index'])->name('gametypes.index');
+    Route::get('gametypes/{game_type_id}/product/{product_id}', [GameTypeProductController::class, 'edit'])->name('gametypes.edit');
+    Route::post('gametypes/{game_type_id}/product/{product_id}', [GameTypeProductController::class, 'update'])->name('gametypes.update');
+   
+    // game list start
+    Route::get('all-game-lists', [GameListController::class, 'index'])->name('gameLists.index');
+    Route::get('all-game-lists/{id}', [GameListController::class, 'edit'])->name('gameLists.edit');
+    Route::post('all-game-lists/{id}', [GameListController::class, 'update'])->name('gameLists.update');
+    Route::patch('gameLists/{id}/toggleStatus', [GameListController::class, 'toggleStatus'])->name('gameLists.toggleStatus');
+    Route::patch('hotgameLists/{id}/toggleStatus', [GameListController::class, 'HotGameStatus'])->name('HotGame.toggleStatus');
+
+
+
     Route::put('player/{id}/ban', [PlayerController::class, 'banUser'])->name('player.ban');
     Route::resource('player', PlayerController::class);
     Route::get('player-cash-in/{player}', [PlayerController::class, 'getCashIn'])->name('player.getCashIn');
@@ -30,6 +54,7 @@ Route::group([
         ->name('player.makeCashOut');
     Route::get('player-changepassword/{id}', [PlayerController::class, 'getChangePassword'])->name('player.getChangePassword');
     Route::post('player-changepassword/{id}', [PlayerController::class, 'makeChangePassword'])->name('player.makeChangePassword');
+    
     Route::group(['prefix' => 'report'], function () {
         Route::get('index', [ReportController::class, 'index'])->name('report.index');
         Route::get('view/{user_id}', [ReportController::class, 'view'])->name('report.view');
