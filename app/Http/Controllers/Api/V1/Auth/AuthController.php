@@ -51,6 +51,26 @@ class AuthController extends Controller
         return $this->success(new UserResource($user), 'User login successfully.');
     }
 
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string' ],
+            'phone' => ['required' ],
+            'password' => ['required', 'confirmed']
+        ]);
+
+        $user = User::create([
+            'user_name' => $this->generateRandomString(),
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+            'agent_id' => 1
+        ]);
+
+        return $this->success(new UserResource($user),'User Register Successfully',
+        );
+    }
+
     public function logout()
     {
         Auth::user()->currentAccessToken()->delete();
@@ -111,5 +131,12 @@ class AuthController extends Controller
         ]);
 
         return $this->success(new PlayerResource($player), 'Update profile');
+    }
+
+    private function generateRandomString()
+    {
+        $randomNumber = mt_rand(10000000, 99999999);
+
+        return 'w-'.$randomNumber;
     }
 }
