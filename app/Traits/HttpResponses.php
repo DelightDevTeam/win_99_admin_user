@@ -12,28 +12,33 @@ trait HttpResponses
 {
     protected function success($data, $message = null, $code = 200)
     {
-        if (is_scalar($data)) {
-            $data = ['data' => $data];
-        } elseif ($data instanceof Arrayable) {
-            $data = ['data' => $data->toArray()];
-        } elseif ($data instanceof ResourceCollection) {
-            $data = $data->response()->getData(true);
+        // if (is_scalar($data)) {
+        //     $data = ['data' => $data];
+        // } elseif ($data instanceof Arrayable) {
+        //     $data = ['data' => $data->toArray()];
+        // } elseif ($data instanceof ResourceCollection) {
+        //     $data = $data->response()->getData(true);
 
-            $temp = Arr::pull($data, 'data');
+        //     $temp = Arr::pull($data, 'data');
 
-            $data = array_merge(['data' => $temp], $data);
-        } elseif ($data instanceof JsonResource) {
-            $data = $data->response()->getData(true);
-        }
+        //     $data = array_merge(['data' => $temp], $data);
+        // } elseif ($data instanceof JsonResource) {
+        //     $data = $data->response()->getData(true);
+        // }
 
-        $default = [
+        // $default = [
+        //     'status' => 'Request was successful.',
+        //     'message' => $message,
+        // ];
+
+        // $data = array_merge($default, $data);
+
+        // return Response::json($data, $code, []);
+        return response()->json([
             'status' => 'Request was successful.',
             'message' => $message,
-        ];
-
-        $data = array_merge($default, $data);
-
-        return Response::json($data, $code, []);
+            'data' => $data
+        ], $code);
     }
 
     protected function error($data, $message, $code)
