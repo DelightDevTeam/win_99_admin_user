@@ -5,3 +5,6 @@ php artisan make:migration create_game_type_product_table --create=game_type_pro
 
 
 INSERT INTO settings (`group`, `name`, `payload`, `created_at`, `updated_at`) VALUES ('app', 'provider_initial_balance', '436459', NOW(), NOW());
+
+* * * * * cd /var/www/html/win_99_admin_user && php artisan schedule:run >> /dev/null 2>&1
+tail -f /var/www/html/win_99_admin_user/storage/logs/laravel.log

@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use App\Enums\TransactionStatus;
+use App\Models\User;
+use App\Models\Transaction;
 use App\Models\Admin\Product;
 use App\Models\SeamlessEvent;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\TransactionStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SeamlessTransaction extends Model
 {
