@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\User;
-use App\Models\Transaction;
+use App\Enums\TransactionStatus;
 use App\Models\Admin\Product;
 use App\Models\SeamlessEvent;
-use App\Enums\TransactionStatus;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class SeamlessTransaction extends Model
 {
@@ -42,6 +42,10 @@ class SeamlessTransaction extends Model
         return $this->belongsTo(SeamlessEvent::class, 'seamless_event_id');
     }
 
+    // public function transactions()
+    // {
+    //     return $this->hasMany(Transaction::class);
+    // }
     public function transactions()
     {
         return $this->hasMany(Transaction::class);

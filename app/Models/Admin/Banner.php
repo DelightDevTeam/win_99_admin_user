@@ -17,6 +17,6 @@ class Banner extends Model
 
     public function getImgUrlAttribute()
     {
-        return asset('assets/img/banners/' . $this->image);
+        return asset('assets/img/banners/'.$this->image);
     }
 }

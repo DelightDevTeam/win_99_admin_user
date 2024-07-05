@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\PlaceBet;
 use App\Enums\TransactionName;
+use App\Models\PlaceBet;
 use App\Models\SeamlessTransaction;
-use Illuminate\Database\Eloquent\Model;
+use Bavix\Wallet\Models\Transaction as WalletTransaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Bavix\Wallet\Models\Transaction as ModelsTransaction;
+//use Bavix\Wallet\Models\Transaction as ModelsTransaction;
+use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends ModelsTransaction
+class Transaction extends WalletTransaction
 {
     use HasFactory;
 
@@ -43,6 +44,10 @@ class Transaction extends ModelsTransaction
         return $this->belongsTo(User::class);
     }
 
+    // public function seamlessTransaction()
+    // {
+    //     return $this->belongsTo(SeamlessTransaction::class);
+    // }
     public function seamlessTransaction()
     {
         return $this->belongsTo(SeamlessTransaction::class);
