@@ -1,10 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\LoginController;
-
 
 require_once __DIR__.'/admin.php';
 

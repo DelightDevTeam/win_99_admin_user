@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class SlotWebhookRequest extends FormRequest
 {
     private ?User $member;
-    
+
     /**
      * Determine if the user is authorized to make this request.
      */

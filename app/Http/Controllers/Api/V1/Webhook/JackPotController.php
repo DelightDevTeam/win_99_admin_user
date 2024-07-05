@@ -2,29 +2,31 @@
 
 namespace App\Http\Controllers\Api\V1\Webhook;
 
-use App\Models\User;
-use App\Models\Transaction;
-use App\Services\ApiService;
-use Illuminate\Http\Request;
-use App\Enums\TransactionName;
-use App\Services\WalletService;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use App\Enums\SlotWebhookResponseCode;
+use App\Enums\TransactionName;
+use App\Http\Controllers\Api\V1\Webhook\Traits\UseWebhook;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Slot\SlotWebhookRequest;
+use App\Models\Transaction;
+use App\Models\User;
+use App\Services\ApiService;
 use App\Services\Slot\SlotWebhookService;
 use App\Services\Slot\SlotWebhookValidator;
-use App\Http\Requests\Slot\SlotWebhookRequest;
-use App\Http\Controllers\Api\V1\Webhook\Traits\UseWebhook;
+use App\Services\WalletService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JackPotController extends Controller
 {
     use UseWebhook;
-      protected $apiService;
+
+    protected $apiService;
 
     public function __construct(ApiService $apiService)
     {
         $this->apiService = $apiService;
     }
+
     public function jackPot(SlotWebhookRequest $request)
     {
         DB::beginTransaction();

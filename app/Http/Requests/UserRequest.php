@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -16,7 +17,7 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->route('user')->id,
+            'email' => 'required|email|unique:users,email,'.$this->route('user')->id,
             'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the validation rules as necessary
         ];
     }

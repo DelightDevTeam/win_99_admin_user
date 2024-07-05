@@ -26,7 +26,7 @@ class LoginRequest extends FormRequest
                 'required',
                 'regex:/^(09)[0-9]{7,11}$/',
                 'numeric',
-            ],            
+            ],
             'password' => ['required', 'string'],
         ];
     }

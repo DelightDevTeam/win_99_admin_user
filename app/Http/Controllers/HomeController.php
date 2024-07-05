@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class HomeController extends Controller
 {
     /**
@@ -57,7 +56,7 @@ class HomeController extends Controller
 
         //$provider_balance = (new AppSetting)->provider_initial_balance + SeamlessTransaction::sum('transaction_amount');
         $appSetting = app(AppSetting::class);
-        $provider_balance = $appSetting->provider_initial_balance +     SeamlessTransaction::sum('transaction_amount');
+        $provider_balance = $appSetting->provider_initial_balance + SeamlessTransaction::sum('transaction_amount');
 
         return view('admin.dashboard', compact(
             'provider_balance',

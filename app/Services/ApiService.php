@@ -23,7 +23,7 @@ class ApiService
     //     return $response->json();
     // }
 
-     protected $baseUrl;
+    protected $baseUrl;
 
     public function __construct()
     {
@@ -44,7 +44,7 @@ class ApiService
     {
         $attempt = 0;
         $backoff = 1;
-        $url = $this->baseUrl . $endpoint;
+        $url = $this->baseUrl.$endpoint;
 
         while ($attempt < $maxRetries) {
             $response = Http::$method($url, $data);

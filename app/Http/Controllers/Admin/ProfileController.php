@@ -55,12 +55,12 @@ class ProfileController extends Controller
 
         if ($newImage) {
             // $main_folder = 'profile_images/';
-            $main_folder = 'profile_image/' . Str::random();
+            $main_folder = 'profile_image/'.Str::random();
             $filename = $newImage->getClientOriginalName();
 
             // Store the new image with specified visibility settings
             $path = Storage::putFileAs(
-                'public/' . $main_folder,
+                'public/'.$main_folder,
                 $newImage,
                 $filename,
                 [

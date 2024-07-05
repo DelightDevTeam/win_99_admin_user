@@ -57,13 +57,13 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string' ],
+            'name' => ['required', 'string'],
             'phone' => [
                 'required',
                 'regex:/^(09)[0-9]{7,11}$/',
                 'numeric',
             ],
-            'password' => ['required', 'confirmed']
+            'password' => ['required', 'confirmed'],
         ]);
 
         $user = User::create([
@@ -74,7 +74,8 @@ class AuthController extends Controller
             'agent_id' => self::ADMIN,
             'type' => UserType::Player,
         ]);
-        return $this->success(new UserResource($user),'User Register Successfully',
+
+        return $this->success(new UserResource($user), 'User Register Successfully',
         );
     }
 

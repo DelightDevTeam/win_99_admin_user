@@ -203,6 +203,7 @@ class PlayerController extends Controller
             '403 Forbidden |You cannot  Access this page because you do not have permission'
         );
         $player->load('userPayments.paymentType');
+
         return view('admin.player.cash_in', compact('player'));
     }
 
@@ -245,7 +246,6 @@ class PlayerController extends Controller
         );
 
         $player->load('userPayments.paymentType');
-
 
         return view('admin.player.cash_out', compact('player'));
     }

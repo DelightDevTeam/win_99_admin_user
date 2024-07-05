@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Exception;
-use App\Models\User;
-use Illuminate\Http\Request;
-use App\Models\Admin\UserLog;
-use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
+use App\Models\Admin\UserLog;
+use App\Models\User;
+use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,7 +21,7 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-       //dd($request->all());
+        //dd($request->all());
         $user = User::where('user_name', $request->user_name)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('agent_id')->references('id')->on('users')->onDelete('cascade');
-        
+
         });
     }
 

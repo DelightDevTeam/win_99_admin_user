@@ -47,6 +47,6 @@ class PermissionRoleTableSeeder extends Seeder
             'deposit_requests',
         ]);
         Role::findOrFail(1)->permissions()->sync($admin_permissions->pluck('id'));
-        
+
     }
 }

@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-         $this->app->singleton(ApiService::class, function ($app) {
+        $this->app->singleton(ApiService::class, function ($app) {
             return new ApiService(config('game.api.url'));
         });
     }
@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Schema::defaultStringLength(191);
-        
+
     }
 }
