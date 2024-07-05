@@ -5,12 +5,12 @@ namespace App\Models;
 use App\Enums\TransactionName;
 use App\Models\PlaceBet;
 use App\Models\SeamlessTransaction;
-use Bavix\Wallet\Models\Transaction as WalletTransaction;
+//use Bavix\Wallet\Models\Transaction as WalletTransaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-//use Bavix\Wallet\Models\Transaction as ModelsTransaction;
+use Bavix\Wallet\Models\Transaction as ModelsTransaction;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends WalletTransaction
+class Transaction extends ModelsTransaction
 {
     use HasFactory;
 

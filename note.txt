@@ -8,3 +8,4 @@ INSERT INTO settings (`group`, `name`, `payload`, `created_at`, `updated_at`) VA
 
 * * * * * cd /var/www/html/win_99_admin_user && php artisan schedule:run >> /dev/null 2>&1
 tail -f /var/www/html/win_99_admin_user/storage/logs/laravel.log
+php -r "file_put_contents('/var/www/html/win_99_admin_user/storage/logs/laravel.log', '');"
