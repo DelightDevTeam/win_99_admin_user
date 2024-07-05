@@ -5,7 +5,8 @@ namespace App\Providers;
 use App\Services\ApiService;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-
+use Bavix\Wallet\Models\Transaction as BaseTransaction;
+use App\Models\Transaction as CustomTransaction;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -16,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ApiService::class, function ($app) {
             return new ApiService(config('game.api.url'));
         });
+        $this->app->bind(BaseTransaction::class, CustomTransaction::class);
     }
 
     /**
