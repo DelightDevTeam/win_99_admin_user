@@ -33,6 +33,22 @@
             </a>
           </li>
     @endcan
+    @can('withdraw_requests')
+    <li class="nav-item">
+      <a class="nav-link text-white " href="{{ route('admin.player.withdraw')}}">
+        <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
+        <span class="sidenav-normal  ms-2  ps-1">WithDraw Requests</span>
+      </a>
+    </li>
+    @endcan
+    @can('deposit_requests')
+    <li class="nav-item">
+      <a class="nav-link text-white " href="{{ route('admin.player.deposit')}}">
+        <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
+        <span class="sidenav-normal  ms-2  ps-1">Deposit Requests</span>
+      </a>
+    </li>
+    @endcan
     @can('player_index')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.player.index')}}">
@@ -93,7 +109,7 @@
           <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.gameLists.index') }}">
             <span class="sidenav-mini-icon">G L</span>
-              <span class="sidenav-normal  ms-2  ps-1"> gameList </span>
+              <span class="sidenav-normal  ms-2  ps-1"> GameList </span>
             </a>
           </li>
         </ul>

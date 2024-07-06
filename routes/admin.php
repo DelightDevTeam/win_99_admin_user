@@ -1,18 +1,21 @@
 <?php
 
-use App\Http\Controllers\Admin\BannerAdsController;
-use App\Http\Controllers\Admin\BannerController;
-use App\Http\Controllers\Admin\BannerTextController;
-use App\Http\Controllers\Admin\GameListController;
-use App\Http\Controllers\Admin\GameTypeProductController;
-use App\Http\Controllers\Admin\PaymentTypeController;
-use App\Http\Controllers\Admin\PlayerController;
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\PromotionController;
-use App\Http\Controllers\Admin\UserPaymentController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\PlayerController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\GameListController;
+use App\Http\Controllers\Admin\BannerAdsController;
+use App\Http\Controllers\Admin\PromotionController;
+use App\Http\Controllers\Admin\BannerTextController;
+use App\Http\Controllers\Admin\PaymentTypeController;
+use App\Http\Controllers\Admin\UserPaymentController;
+use App\Http\Controllers\Admin\GameTypeProductController;
+use App\Http\Controllers\Admin\Deposit\DepositRequestController;
+use App\Http\Controllers\Admin\TransferLog\TransferLogController;
+use App\Http\Controllers\Admin\WithDraw\WithDrawRequestController;
 
 Route::group([
     'prefix' => 'admin', 'as' => 'admin.',
@@ -53,6 +56,18 @@ Route::group([
     Route::get('player-changepassword/{id}', [PlayerController::class, 'getChangePassword'])->name('player.getChangePassword');
     Route::post('player-changepassword/{id}', [PlayerController::class, 'makeChangePassword'])->name('player.makeChangePassword');
 
+
+    Route::get('withdraw', [WithDrawRequestController::class, 'index'])->name('player.withdraw');
+    Route::get('withdraw/{id}', [WithDrawRequestController::class, 'show'])->name('player.withdrawshow');
+
+    Route::post('withdraw/{withdraw}', [WithDrawRequestController::class, 'statusChange'])->name('player.statusChange');
+    Route::get('deposit', [DepositRequestController::class, 'index'])->name('player.deposit');
+    Route::get('deposit/{id}', [DepositRequestController::class, 'show'])->name('player.depositshow');
+
+    Route::post('deposit/{deposit}', [DepositRequestController::class, 'updateStatus'])->name('player.updateStatus');
+
+    Route::get('transer-log', [TransferLogController::class, 'index'])->name('transferLog');
+    
     Route::group(['prefix' => 'report'], function () {
         Route::get('index', [ReportController::class, 'index'])->name('report.index');
         Route::get('view/{user_id}', [ReportController::class, 'view'])->name('report.view');
