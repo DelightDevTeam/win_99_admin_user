@@ -9,7 +9,7 @@ use Bavix\Wallet\Models\Transaction as ModelsTransaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class Transaction extends ModelsTransaction
 {
     use HasFactory;
 
