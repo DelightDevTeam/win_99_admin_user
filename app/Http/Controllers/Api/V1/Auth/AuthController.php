@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
+use App\Enums\UserType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ChangePasswordRequest;
 use App\Http\Requests\Api\LoginRequest;
@@ -18,6 +19,10 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     use HttpResponses;
+
+    private const PLAYER_ROLE = 2;
+
+    private const ADMIN = 1;
 
     public function login(LoginRequest $request)
     {
@@ -51,6 +56,32 @@ class AuthController extends Controller
         return $this->success(new UserResource($user), 'User login successfully.');
     }
 
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string'],
+            'phone' => [
+                'required',
+                'regex:/^(09)[0-9]{7,11}$/',
+                'numeric',
+                'unique:users,phone'
+            ],
+            'password' => ['required', 'confirmed'],
+        ]);
+
+        $user = User::create([
+            'user_name' => $this->generateRandomString(),
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+            'agent_id' => self::ADMIN,
+            'type' => UserType::Player,
+        ]);
+        $user->roles()->sync(self::PLAYER_ROLE);
+
+        return $this->success(new UserResource($user), 'User Register Successfully',
+        );
+    }
     public function logout()
     {
         Auth::user()->currentAccessToken()->delete();
