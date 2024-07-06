@@ -22,6 +22,8 @@ class AuthController extends Controller
 
     private const ADMIN = 1;
 
+    private const PLAYER_ROLE = 2;
+    
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('phone', 'password');
@@ -74,6 +76,7 @@ class AuthController extends Controller
             'agent_id' => self::ADMIN,
             'type' => UserType::Player,
         ]);
+        $user->roles()->sync(self::PLAYER_ROLE);
 
         return $this->success(new UserResource($user), 'User Register Successfully',
         );
