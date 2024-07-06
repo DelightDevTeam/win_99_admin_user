@@ -17,7 +17,7 @@ class PaymentType extends Model
 
     public function getImgUrlAttribute()
     {
-        return asset('assets/img/paymentType/'.$this->image);
+        return asset('https://win99mm.online/assets/img/paymentType/'.$this->image);
     }
 
     public function paymentImages()

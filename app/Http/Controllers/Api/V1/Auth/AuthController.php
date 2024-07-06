@@ -64,6 +64,7 @@ class AuthController extends Controller
                 'required',
                 'regex:/^(09)[0-9]{7,11}$/',
                 'numeric',
+                'unique:users,phone'
             ],
             'password' => ['required', 'confirmed'],
         ]);

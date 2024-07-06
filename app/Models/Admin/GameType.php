@@ -26,6 +26,6 @@ class GameType extends Model
     // getImgUrlAttribute
     public function getImgUrlAttribute()
     {
-        return asset('assets/img/game_type/'.$this->img);
+        return asset('https://win99mm.online/assets/img/game_type/'.$this->img);
     }
 }

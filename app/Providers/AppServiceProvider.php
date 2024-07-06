@@ -15,9 +15,10 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(ApiService::class, function ($app) {
-            return new ApiService(config('game.api.url'));
+            // return new ApiService(config('game.api.url'));
+            return new ApiService('http://gsmd.336699bet.com'); // Replace with your API base URL
         });
-        $this->app->bind(BaseTransaction::class, CustomTransaction::class);
+        // $this->app->bind(BaseTransaction::class, CustomTransaction::class);
     }
 
     /**
