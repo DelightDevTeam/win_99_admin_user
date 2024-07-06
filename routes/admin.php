@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\Agent\AgentController;
 use App\Http\Controllers\Admin\BannerAds\BannerAdsController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BannerTextController;
@@ -9,8 +8,6 @@ use App\Http\Controllers\Admin\Deposit\DepositRequestController;
 use App\Http\Controllers\Admin\GameListController;
 use App\Http\Controllers\Admin\GameTypeProductController;
 use App\Http\Controllers\Admin\GetBetDetailController;
-use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\Admin\Master\MasterController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PaymentTypeController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -24,7 +21,6 @@ use App\Http\Controllers\Admin\UserPaymentController;
 use App\Http\Controllers\Admin\WithDraw\WithDrawRequestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
-use App\Models\Admin\Role;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -89,26 +85,6 @@ Route::group([
     Route::patch('hotgameLists/{id}/toggleStatus', [GameListController::class, 'HotGameStatus'])->name('HotGame.toggleStatus');
 
     // game list end
-
-    Route::resource('agent', AgentController::class);
-    Route::get('agent-cash-in/{id}', [AgentController::class, 'getCashIn'])->name('agent.getCashIn');
-    Route::post('agent-cash-in/{id}', [AgentController::class, 'makeCashIn'])->name('agent.makeCashIn');
-    Route::get('agent/cash-out/{id}', [AgentController::class, 'getCashOut'])->name('agent.getCashOut');
-    Route::post('agent/cash-out/update/{id}', [AgentController::class, 'makeCashOut'])
-        ->name('agent.makeCashOut');
-    Route::put('agent/{id}/ban', [AgentController::class, 'banAgent'])->name('agent.ban');
-    Route::get('agent-changepassword/{id}', [AgentController::class, 'getChangePassword'])->name('agent.getChangePassword');
-    Route::post('agent-changepassword/{id}', [AgentController::class, 'makeChangePassword'])->name('agent.makeChangePassword');
-
-    Route::resource('master', MasterController::class);
-    Route::get('master-cash-in/{id}', [MasterController::class, 'getCashIn'])->name('master.getCashIn');
-    Route::post('master-cash-in/{id}', [MasterController::class, 'makeCashIn'])->name('master.makeCashIn');
-    Route::get('master/cash-out/{id}', [MasterController::class, 'getCashOut'])->name('master.getCashOut');
-    Route::post('master/cash-out/update/{id}', [MasterController::class, 'makeCashOut'])
-        ->name('master.makeCashOut');
-    Route::put('master/{id}/ban', [MasterController::class, 'banMaster'])->name('master.ban');
-    Route::get('master-changepassword/{id}', [MasterController::class, 'getChangePassword'])->name('master.getChangePassword');
-    Route::post('master-changepassword/{id}', [MasterController::class, 'makeChangePassword'])->name('master.makeChangePassword');
 
     Route::get('withdraw', [WithDrawRequestController::class, 'index'])->name('agent.withdraw');
     Route::get('withdraw/{id}', [WithDrawRequestController::class, 'show'])->name('agent.withdrawshow');
