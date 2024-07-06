@@ -28,12 +28,6 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        abort_if(
-            Gate::denies('player_index'),
-            Response::HTTP_FORBIDDEN,
-            '403 Forbidden |You cannot  Access this page because you do not have permission'
-        );
-        //kzt
         $users = User::with('roles')
             ->whereHas('roles', function ($query) {
                 $query->where('role_id', self::PLAYER_ROLE);
@@ -50,15 +44,9 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        abort_if(
-            Gate::denies('player_create'),
-            Response::HTTP_FORBIDDEN,
-            '403 Forbidden |You cannot  Access this page because you do not have permission'
-        );
         $player_name = $this->generateRandomString();
-        $banks = Bank::all();
 
-        return view('admin.player.create', compact('player_name', 'banks'));
+        return view('admin.player.create', compact('player_name'));
     }
 
     /**
@@ -66,18 +54,12 @@ class PlayerController extends Controller
      */
     public function store(PlayerRequest $request)
     {
-        abort_if(
-            Gate::denies('player_store'),
-            Response::HTTP_FORBIDDEN,
-            '403 Forbidden |You cannot Access this page because you do not have permission'
-        );
-
         try {
             // Validate input
-            $agent = Auth::user();
+            $admin = Auth::user();
             $inputs = $request->validated();
 
-            if (isset($inputs['amount']) && $inputs['amount'] > $agent->balanceFloat) {
+            if (isset($inputs['amount']) && $inputs['amount'] > $admin->balanceFloat) {
                 throw ValidationException::withMessages([
                     'amount' => 'Insufficient balance for transfer.',
                 ]);
@@ -87,7 +69,7 @@ class PlayerController extends Controller
                 $inputs,
                 [
                     'password' => Hash::make($inputs['password']),
-                    'agent_id' => Auth()->user()->id,
+                    'agent_id' => Auth::id(),
                     'type' => UserType::Player,
                 ]
             );
@@ -98,7 +80,7 @@ class PlayerController extends Controller
             $player->roles()->sync(self::PLAYER_ROLE);
 
             if (isset($inputs['amount'])) {
-                app(WalletService::class)->transfer($agent, $player, $inputs['amount'], TransactionName::CreditTransfer);
+                app(WalletService::class)->transfer($admin, $player, $inputs['amount'], TransactionName::CreditTransfer);
             }
 
             return redirect()->back()
@@ -119,12 +101,6 @@ class PlayerController extends Controller
      */
     public function show(string $id)
     {
-        abort_if(
-            Gate::denies('player_show'),
-            Response::HTTP_FORBIDDEN,
-            '403 Forbidden |You cannot  Access this page because you do not have permission'
-        );
-
         $user_detail = User::findOrFail($id);
 
         return view('admin.player.show', compact('user_detail'));
@@ -135,14 +111,7 @@ class PlayerController extends Controller
      */
     public function edit(User $player)
     {
-        abort_if(
-            Gate::denies('player_edit'),
-            Response::HTTP_FORBIDDEN,
-            '403 Forbidden |You cannot  Access this page because you do not have permission'
-        );
-        $banks = Bank::all();
-
-        return response()->view('admin.player.edit', compact('player', 'banks'));
+        return response()->view('admin.player.edit', compact('player'));
     }
 
     /**
@@ -160,12 +129,6 @@ class PlayerController extends Controller
      */
     public function destroy(User $player)
     {
-        abort_if(
-            Gate::denies('user_delete') || ! $this->ifChildOfParent(request()->user()->id, $player->id),
-            Response::HTTP_FORBIDDEN,
-            '403 Forbidden |You cannot  Access this page because you do not have permission'
-        );
-        //$player->destroy();
         User::destroy($player->id);
 
         return redirect()->route('admin.player.index')->with('success', 'User deleted successfully');
@@ -180,12 +143,6 @@ class PlayerController extends Controller
 
     public function banUser($id)
     {
-        abort_if(
-            ! $this->ifChildOfParent(request()->user()->id, $id),
-            Response::HTTP_FORBIDDEN,
-            '403 Forbidden |You cannot  Access this page because you do not have permission'
-        );
-
         $user = User::find($id);
         $user->update(['status' => $user->status == 1 ? 0 : 1]);
 
@@ -218,15 +175,15 @@ class PlayerController extends Controller
             $inputs = $request->validated();
             $inputs['refrence_id'] = $this->getRefrenceId();
 
-            $agent = Auth::user();
+            $admin = Auth::user();
             $cashIn = $inputs['amount'];
 
-            if ($cashIn > $agent->balanceFloat) {
+            if ($cashIn > $admin->balanceFloat) {
 
                 return redirect()->back()->with('error', 'You do not have enough balance to transfer!');
             }
 
-            app(WalletService::class)->transfer($agent, $player, $request->validated('amount'), TransactionName::CreditTransfer, ['note' => $inputs['note'], 'payment_type' => 'deposit']);
+            app(WalletService::class)->transfer($admin, $player, $request->validated('amount'), TransactionName::CreditTransfer, ['note' => $inputs['note'], 'payment_type' => 'deposit']);
 
             return redirect()->back()
                 ->with('success', 'CashIn submitted successfully!');
@@ -259,7 +216,7 @@ class PlayerController extends Controller
             $inputs = $request->validated();
             $inputs['refrence_id'] = $this->getRefrenceId();
 
-            $agent = Auth::user();
+            $admin = Auth::user();
             $cashOut = $inputs['amount'];
 
             if ($cashOut > $player->balanceFloat) {
@@ -267,7 +224,7 @@ class PlayerController extends Controller
                 return redirect()->back()->with('error', 'You do not have enough balance to transfer!');
             }
 
-            app(WalletService::class)->transfer($player, $agent, $request->validated('amount'), TransactionName::DebitTransfer, ['note' => $inputs['note'], 'payment_type' => 'withdraw']);
+            app(WalletService::class)->transfer($player, $admin, $request->validated('amount'), TransactionName::DebitTransfer, ['note' => $inputs['note'], 'payment_type' => 'withdraw']);
 
             return redirect()->back()
                 ->with('success', 'CashOut submitted successfully!');
@@ -305,7 +262,7 @@ class PlayerController extends Controller
     {
         $randomNumber = mt_rand(10000000, 99999999);
 
-        return 'TG-'.$randomNumber;
+        return 'W-'.$randomNumber;
     }
 
     private function getRefrenceId($prefix = 'REF')

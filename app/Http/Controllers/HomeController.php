@@ -46,16 +46,9 @@ class HomeController extends Controller
             })->count();
         };
 
-        $master_count = $getUserCounts('Master');
-        $agent_count = $getUserCounts('Agent');
         $player_count = $getUserCounts('Player');
 
-        $provider_balance = (new AppSetting)->provider_initial_balance + SeamlessTransaction::sum('transaction_amount');
-
         return view('admin.dashboard', compact(
-            'provider_balance',
-            'master_count',
-            'agent_count',
             'player_count',
             'user'
         ));

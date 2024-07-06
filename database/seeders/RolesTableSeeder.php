@@ -21,18 +21,6 @@ class RolesTableSeeder extends Seeder
             ],
             [
 
-                'title' => 'Master',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-
-                'title' => 'Agent',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-
                 'title' => 'Player',
                 'created_at' => now(),
                 'updated_at' => now(),
