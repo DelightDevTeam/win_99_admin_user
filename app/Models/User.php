@@ -8,11 +8,9 @@ use App\Models\Admin\Bank;
 use App\Models\Admin\Permission;
 use App\Models\Admin\Role;
 use App\Models\SeamlessTransaction;
-use App\Models\UserPayment;
 use Bavix\Wallet\Interfaces\Wallet;
 use Bavix\Wallet\Traits\HasWalletFloat;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
@@ -154,15 +152,5 @@ class User extends Authenticatable implements Wallet
         }
 
         return $query;
-    }
-
-    public function bank()
-    {
-        return $this->belongsTo(Bank::class);
-    }
-
-    public function userPayments(): HasMany
-    {
-        return $this->hasMany(UserPayment::class);
     }
 }

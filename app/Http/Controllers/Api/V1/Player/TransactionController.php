@@ -32,11 +32,12 @@ class TransactionController extends Controller
         };
 
         $user = auth()->user();
-        
-        $transactions = $user->transactions()->with(['seamlessTransaction.product:id,name'])->whereBetween('created_at', [$from, $to])
-        ->orderBy('id', 'DESC')
-        ->paginate();
 
+        $transactions = $user->transactions()->with(['seamlessTransaction.product:id,name'])->whereBetween('created_at', [$from, $to])
+            ->orderBy('id', 'DESC')
+            ->paginate();
+
+        // return $this->success($transactions);
         return $this->success(TransactionResource::collection($transactions));
     }
 

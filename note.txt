@@ -1,11 +1,15 @@
-composer create-project --prefer-dist laravel/laravel:^10.0 your-project-name
-php artisan make:migration create_permission_role_table --create=permission_role
-php artisan make:migration create_role_user_table --create=role_user
-php artisan make:migration create_game_type_product_table --create=game_type_product
+// to remove laravel log
+php -r "file_put_contents('/var/www/html/shwe_dragon_slot_a/storage/logs/laravel.log', '');"
+// created dev branch for kzt
 
+BigGaming remove
+SBO - have no game list /need to use LaunchGame without the gameID
+YEE Bet - need to use LaunchGame without the gameID
+Vivo Gaming = There is no GetGameList for ProductID = 1035-VIVO_GAMING with game type = 1-SLOT
+Vivo Gaming = There is no GetGameList for ProductID = 1035-VIVO_GAMING with game type = 2-LIVE_CASINO
 
-INSERT INTO settings (`group`, `name`, `payload`, `created_at`, `updated_at`) VALUES ('app', 'provider_initial_balance', '436459', NOW(), NOW());
+King 855 = There is no GetGameList for ProductID = 1038-CT855 with game type = 2-LIVE_CASINO
+ASIA_GAMING= There is no GetGameList for ProductID = 1001-ASIA_GAMING with game type = 2-LIVE_CASINO
 
-* * * * * cd /var/www/html/win_99_admin_user && php artisan schedule:run >> /dev/null 2>&1
-tail -f /var/www/html/win_99_admin_user/storage/logs/laravel.log
-php -r "file_put_contents('/var/www/html/win_99_admin_user/storage/logs/laravel.log', '');"
+SIMPLE_PLAY= There is no GetGameList for ProductID = 1089-SIMPLE_PLAY with game type = 8-FISHING
+SPORT_BOOK = There is no GetGameList for ProductID = 1104-SSports with game type = 3-SPORT_BOOK

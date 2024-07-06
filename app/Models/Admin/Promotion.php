@@ -19,6 +19,6 @@ class Promotion extends Model
 
     public function getImgUrlAttribute()
     {
-        return asset('https://win99mm.online/assets/img/promotions/'.$this->image);
+        return asset('assets/img/promotions/'.$this->image);
     }
 }

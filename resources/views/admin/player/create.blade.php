@@ -150,7 +150,7 @@
               @enderror
             </div>
                
-            {{-- <div class="custom-form-group">
+            <div class="custom-form-group">
             <label for="title">Bank Name <span class="text-danger">*</span></label>
             <div class="custom-select-wrapper">
                 <select name="bank_id" class="form-control custom-select">
@@ -162,7 +162,7 @@
             @error('status')
             <span class="text-danger d-block">*{{ $message }}</span>
             @enderror
-          </div> 
+          </div>
             <div class="custom-form-group">
               <label for="title">Bank Account Name <span class="text-danger">*</span></label>
               <input type="text"  name="bank_account_name" class="form-control" value="{{old('bank_account_name')}}" >
@@ -176,7 +176,7 @@
               @error('bank_account')
               <span class="text-danger d-block">*{{ $message }}</span>
               @enderror
-            </div> --}}
+            </div>
             <div class="custom-form-group">
             <label for="title">Status <span class="text-danger">*</span></label>
             <div class="custom-select-wrapper">

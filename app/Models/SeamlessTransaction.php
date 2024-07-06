@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Enums\TransactionStatus;
 use App\Models\Admin\Product;
 use App\Models\SeamlessEvent;
-use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

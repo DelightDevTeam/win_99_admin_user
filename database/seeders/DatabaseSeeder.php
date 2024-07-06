@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contact;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             CQ9GameListTableSeeder::class,
             CQ9FishingTablesSeeder::class,
             EvolutionGamingTableSeeder::class,
+            HotGameTablesSeeder::class,
             PragmaticPlaySeeder::class,
             PGSoftGameListSeeder::class,
             JokerGameListSeeder::class,
@@ -66,8 +68,7 @@ class DatabaseSeeder extends Seeder
             YesGetRichTablesSeeder::class,
             Live22SMTablesSeeder::class,
             BannerAdsSeeder::class,
-            BankTableSeeder::class,
-
+            ContactTableSeeder::class
         ]);
 
     }

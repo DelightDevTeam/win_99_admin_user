@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\PaymentType;
 use App\Models\UserPayment;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PaymentTypeController extends Controller
 {
@@ -14,7 +17,7 @@ class PaymentTypeController extends Controller
      */
     public function index()
     {
-        $paymentTypes = PaymentType::all();
+        $paymentTypes = UserPayment::with('paymentType')->where('user_id', Auth::id())->get();
 
         return view('admin.paymentType.index', compact('paymentTypes'));
     }

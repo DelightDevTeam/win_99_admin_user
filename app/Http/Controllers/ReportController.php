@@ -82,22 +82,6 @@ class ReportController extends Controller
         return view('report.detail', compact('report', 'player'));
     }
 
-    // public function view($user_name)
-    // {
-    //     $reports = $this->makeJoinTable()->select(
-    //         'users.user_name',
-    //         'users.id as user_id',
-    //         'products.name as product_name',
-    //         'products.code as product_code',
-    //         DB::raw('SUM(reports.bet_amount) as total_bet_amount'),
-    //         DB::raw('SUM(reports.valid_bet_amount) as total_valid_bet_amount'),
-    //         DB::raw('SUM(reports.payout_amount) as total_payout_amount'))
-    //         ->groupBy('users.user_name', 'product_name', 'product_code')
-    //         ->where('reports.member_name', $user_name)
-    //         ->get();
-
-    //     return view('report.view', compact('reports'));
-    // }
     public function view($user_name)
     {
         $reports = $this->makeJoinTable()->select(
@@ -107,9 +91,8 @@ class ReportController extends Controller
             'products.code as product_code',
             DB::raw('SUM(reports.bet_amount) as total_bet_amount'),
             DB::raw('SUM(reports.valid_bet_amount) as total_valid_bet_amount'),
-            DB::raw('SUM(reports.payout_amount) as total_payout_amount')
-        )
-            ->groupBy('users.user_name', 'users.id', 'products.name', 'products.code')
+            DB::raw('SUM(reports.payout_amount) as total_payout_amount'))
+            ->groupBy('users.user_name', 'product_name', 'product_code')
             ->where('reports.member_name', $user_name)
             ->get();
 

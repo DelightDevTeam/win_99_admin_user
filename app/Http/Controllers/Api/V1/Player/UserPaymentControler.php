@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Api\V1\Player;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\PaymentTypeRequest;
-use App\Http\Resources\UserPaymentResource;
 use App\Models\PaymentType;
 use App\Models\UserPayment;
 use App\Traits\HttpResponses;
@@ -15,7 +13,7 @@ class UserPaymentControler extends Controller
 {
     use HttpResponses;
 
-    public function adminPaymentType()
+    public function agentPayment()
     {
         $player = Auth::user();
 
@@ -24,6 +22,7 @@ class UserPaymentControler extends Controller
         return $this->success($data, 'Agent Payment List');
 
     }
+
 
     public function paymentType()
     {

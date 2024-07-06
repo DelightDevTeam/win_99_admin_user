@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\UserPayment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PaymentType extends Model
 {
@@ -17,16 +15,6 @@ class PaymentType extends Model
 
     public function getImgUrlAttribute()
     {
-        return asset('https://win99mm.online/assets/img/paymentType/'.$this->image);
-    }
-
-    public function paymentImages()
-    {
-        return $this->hasMany(PaymentImage::class, 'payment_type_id');
-    }
-
-    public function userPayments(): HasMany
-    {
-        return $this->hasMany(UserPayment::class);
+        return asset('assets/img/paymentType/'.$this->image);
     }
 }

@@ -1,4 +1,6 @@
-@include('layouts.head')
+@include('user.layouts.head')
+
+
 <body>
   <div class=" container-fluid" id="main">
     <div class="login-card pt-5">
@@ -49,7 +51,7 @@
 
 
 </body>
-@include('layouts.js')
+@include('user.layouts.js')
 @yield('script')
 <script>
   function PwdView() {
