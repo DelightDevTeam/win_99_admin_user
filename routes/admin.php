@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BannerAdsController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BannerTextController;
+use App\Http\Controllers\Admin\DepositRequestController;
 use App\Http\Controllers\Admin\GameListController;
 use App\Http\Controllers\Admin\GameTypeProductController;
 use App\Http\Controllers\Admin\PaymentTypeController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Admin\PlayerController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\UserPaymentController;
+use App\Http\Controllers\Admin\WithDrawRequestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +54,15 @@ Route::group([
         ->name('player.makeCashOut');
     Route::get('player-changepassword/{id}', [PlayerController::class, 'getChangePassword'])->name('player.getChangePassword');
     Route::post('player-changepassword/{id}', [PlayerController::class, 'makeChangePassword'])->name('player.makeChangePassword');
+    
+    Route::get('withdraw', [WithDrawRequestController::class, 'index'])->name('withdraw');
+    Route::get('withdraw/{id}', [WithDrawRequestController::class, 'show'])->name('withdrawshow');
+
+    Route::post('withdraw/{withdraw}', [WithDrawRequestController::class, 'statusChange'])->name('statusChange');
+    Route::get('deposit', [DepositRequestController::class, 'index'])->name('deposit');
+    Route::get('deposit/{id}', [DepositRequestController::class, 'show'])->name('depositshow');
+
+    Route::post('deposit/{deposit}', [DepositRequestController::class, 'updateStatus'])->name('updateStatus');
 
     Route::group(['prefix' => 'report'], function () {
         Route::get('index', [ReportController::class, 'index'])->name('report.index');

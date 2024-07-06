@@ -25,6 +25,18 @@
         <span class="sidenav-normal  ms-2  ps-1"> Win/lose Report </span>
       </a>
     </li>
+        <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.deposit') }}">
+              <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1">Deposit Request</span>
+            </a>
+          </li>
+        <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.withdraw') }}">
+              <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1">Withdraw Requst</span>
+            </a>
+          </li>
     @can('payment_type')
         <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.userPayment.index') }}">
