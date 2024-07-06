@@ -66,7 +66,7 @@
       <!-- Card header -->
       
       <div class="card-body">
-        <form action="{{ route('admin.updateStatus',$deposit->id) }}" method="POST">
+        <form action="{{ route('admin.agent.updateStatus',$deposit->id) }}" method="POST">
           @csrf
           <div class="row">
           <input type="hidden" class="form-control" name="player" value="{{ $deposit->user->id }}" readonly>

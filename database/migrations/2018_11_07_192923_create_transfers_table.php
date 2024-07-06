@@ -26,7 +26,6 @@ return new class extends Migration
 
             $table->unsignedBigInteger('deposit_id');
             $table->unsignedBigInteger('withdraw_id');
-
             $table->decimal('discount', 64, 0)
                 ->default(0);
 
@@ -46,6 +45,7 @@ return new class extends Migration
                 ->references('id')
                 ->on($this->transactionTable())
                 ->onDelete('cascade');
+
         });
     }
 

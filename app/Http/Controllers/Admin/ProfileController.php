@@ -47,6 +47,38 @@ class ProfileController extends Controller
         //return view('admin.profile.index');
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
     public function update(UserRequest $request, User $profile)
     {
         $data = $request->validated();
@@ -60,7 +92,8 @@ class ProfileController extends Controller
 
             // Store the new image with specified visibility settings
             $path = Storage::putFileAs(
-                'public/'.$main_folder,
+                'public/'.
+                    $main_folder,
                 $newImage,
                 $filename,
                 [

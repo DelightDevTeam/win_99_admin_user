@@ -113,7 +113,7 @@
 <script>
   var errorMessage = @json(session('error'));
   var successMessage = @json(session('success'));
-  var url = 'https://mk7slot.com/login';
+  var url = 'https://win99mm.com/login';
   var name = @json(session('username'));
   var pw = @json(session('password'));
 

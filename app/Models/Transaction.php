@@ -4,9 +4,9 @@ namespace App\Models;
 
 use App\Enums\TransactionName;
 use App\Models\PlaceBet;
-use App\Models\SeamlessTransaction;
 use Bavix\Wallet\Models\Transaction as ModelsTransaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends ModelsTransaction
 {

@@ -17,7 +17,6 @@ class Banner extends Model
 
     public function getImgUrlAttribute()
     {
-        return asset('https://win99mm.online/assets/img/banners/'.$this->image);
+        return asset('assets/img/banners/'.$this->image);
     }
-
 }

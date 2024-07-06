@@ -60,7 +60,7 @@
           <td>{{ $withdraw->created_at->format('d-m-Y') }}</td>
           <td>
             @if($withdraw->status == 0 )
-            <a href="{{route('admin.withdrawshow',$withdraw->id)}}" class="btn btn-primary" disabled >Update</a>
+            <a href="{{route('admin.agent.withdrawshow',$withdraw->id)}}" class="btn btn-primary" disabled >Update</a>
             @endif
           </td>
         </tr>

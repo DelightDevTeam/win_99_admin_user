@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\File;
 
 class BannerController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         $banners = Banner::latest()->get();
@@ -16,11 +19,17 @@ class BannerController extends Controller
         return view('admin.banners.index', compact('banners'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         return view('admin.banners.create');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -38,16 +47,25 @@ class BannerController extends Controller
         return redirect(route('admin.banners.index'))->with('success', 'New Banner Image Added.');
     }
 
+    /**
+     * Display the specified resource.
+     */
     public function show(Banner $banner)
     {
         return view('admin.banners.show', compact('banner'));
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(Banner $banner)
     {
         return view('admin.banners.edit', compact('banner'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, Banner $banner)
     {
         if (! $banner) {
@@ -72,12 +90,15 @@ class BannerController extends Controller
         return redirect(route('admin.banners.index'))->with('success', 'Banner Image Updated.');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(Banner $banner)
     {
         if (! $banner) {
             return redirect()->back()->with('error', 'Banner Not Found');
         }
-
+        //remove banner from localstorage
         File::delete(public_path('assets/img/banners/'.$banner->image));
         $banner->delete();
 

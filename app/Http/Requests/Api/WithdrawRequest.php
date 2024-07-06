@@ -21,12 +21,14 @@ class WithdrawRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
             'account_name' => ['required'],
             'account_no' => ['required'],
             'payment_type_id' => ['required'],
             'amount' => ['required', 'integer'],
             'password' => ['required', 'string'],
+            'note' => ['nullable', 'string'],
         ];
     }
 }

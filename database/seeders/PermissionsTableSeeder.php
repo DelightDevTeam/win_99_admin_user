@@ -19,21 +19,6 @@ class PermissionsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'title' => 'agent_access',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'master_access',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'player_access',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
                 'title' => 'permission_index',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -118,6 +103,7 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+
             [
                 'title' => 'transfer_log',
                 'created_at' => now(),
@@ -125,11 +111,6 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'title' => 'make_transfer',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'agent_change_password_access',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -148,7 +129,11 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-
+            [
+                'title' => 'contact',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         Permission::insert($permissions);

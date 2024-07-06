@@ -61,7 +61,7 @@
           <td>{{ $deposit->created_at}}</td>
           <td>
             @if($deposit->status == 0 )
-            <a href="{{route('admin.depositshow',$deposit->id)}}" class="btn btn-primary" disabled >Update</a>
+            <a href="{{route('admin.agent.depositshow',$deposit->id)}}" class="btn btn-primary" disabled >Update</a>
             @endif
           </td>
         </tr>

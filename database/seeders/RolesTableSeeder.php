@@ -24,7 +24,8 @@ class RolesTableSeeder extends Seeder
                 'title' => 'Player',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            ],
+
         ];
 
         Role::insert($roles);

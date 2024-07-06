@@ -150,33 +150,7 @@
               @enderror
             </div>
                
-            {{-- <div class="custom-form-group">
-            <label for="title">Bank Name <span class="text-danger">*</span></label>
-            <div class="custom-select-wrapper">
-                <select name="bank_id" class="form-control custom-select">
-                    @foreach ($banks as $bank)
-                    <option value="{{$bank->id}}">{{$bank->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            @error('status')
-            <span class="text-danger d-block">*{{ $message }}</span>
-            @enderror
-          </div> 
-            <div class="custom-form-group">
-              <label for="title">Bank Account Name <span class="text-danger">*</span></label>
-              <input type="text"  name="bank_account_name" class="form-control" value="{{old('bank_account_name')}}" >
-              @error('bank_account_name')
-              <span class="text-danger d-block">*{{ $message }}</span>
-              @enderror
-            </div>
-            <div class="custom-form-group">
-              <label for="title">Bank Account <span class="text-danger">*</span></label>
-              <input type="text"  name="bank_account" class="form-control" value="{{old('bank_account')}}" >
-              @error('bank_account')
-              <span class="text-danger d-block">*{{ $message }}</span>
-              @enderror
-            </div> --}}
+            
             <div class="custom-form-group">
             <label for="title">Status <span class="text-danger">*</span></label>
             <div class="custom-select-wrapper">
@@ -219,7 +193,7 @@
 <script>
   var errorMessage = @json(session('error'));
   var successMessage = @json(session('success'));
-  var url = 'https://mk7slot.com/login';
+  var url = 'https://win99mm.com/login';
   var user_name = @json(session('user_name'));
   var pw = @json(session('password'));
   

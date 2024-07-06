@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Slot\SlotWebhookRequest;
 use App\Models\Transaction;
 use App\Models\User;
-use App\Services\ApiService;
 use App\Services\Slot\SlotWebhookService;
 use App\Services\Slot\SlotWebhookValidator;
 use App\Services\WalletService;
@@ -19,13 +18,6 @@ use Illuminate\Support\Facades\DB;
 class JackPotController extends Controller
 {
     use UseWebhook;
-
-    protected $apiService;
-
-    public function __construct(ApiService $apiService)
-    {
-        $this->apiService = $apiService;
-    }
 
     public function jackPot(SlotWebhookRequest $request)
     {
