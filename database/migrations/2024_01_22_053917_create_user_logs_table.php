@@ -18,7 +18,9 @@ return new class extends Migration
             $table->integer('lastupdate')->nullable();
             $table->string('func_access')->nullable();
             $table->timestamps();
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

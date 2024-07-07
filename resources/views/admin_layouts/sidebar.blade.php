@@ -14,29 +14,12 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-white " href="{{ url('admin/login-logs')}}">
-        <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1"> LoginLogs </span>
-      </a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.report.index')}}">
         <span class="sidenav-mini-icon"> <i class="fa-solid fa-chart-column"></i> </span>
         <span class="sidenav-normal  ms-2  ps-1"> Win/lose Report </span>
       </a>
     </li>
-        <li class="nav-item ">
-            <a class="nav-link text-white " href="{{ route('admin.deposit') }}">
-              <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
-              <span class="sidenav-normal  ms-2  ps-1">Deposit Request</span>
-            </a>
-          </li>
-        <li class="nav-item ">
-            <a class="nav-link text-white " href="{{ route('admin.withdraw') }}">
-              <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
-              <span class="sidenav-normal  ms-2  ps-1">Withdraw Requst</span>
-            </a>
-          </li>
+
     @can('payment_type')
         <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.userPayment.index') }}">
@@ -45,7 +28,22 @@
             </a>
           </li>
     @endcan
-    
+    @can('withdraw_requests')
+    <li class="nav-item">
+      <a class="nav-link text-white " href="{{ route('admin.agent.withdraw')}}">
+        <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
+        <span class="sidenav-normal  ms-2  ps-1">WithDraw Requests</span>
+      </a>
+    </li>
+    @endcan
+    @can('deposit_requests')
+    <li class="nav-item">
+      <a class="nav-link text-white " href="{{ route('admin.agent.deposit')}}">
+        <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
+        <span class="sidenav-normal  ms-2  ps-1">Deposit Requests</span>
+      </a>
+    </li>
+    @endcan
     @can('player_index')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.player.index')}}">
@@ -53,10 +51,15 @@
         <span class="sidenav-normal  ms-2  ps-1">Player List</span>
       </a>
     </li>
-    @endcan 
- 
+    @endcan
+    <li class="nav-item">
+      <a class="nav-link text-white " href="{{ route('admin.transferLog')}}">
+        <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
+        <span class="sidenav-normal  ms-2  ps-1">Transfer Log</span>
+      </a>
+    </li>
     <hr class="horizontal light mt-0">
-    @can('admin_access')
+
     <li class="nav-item">
       <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white " aria-controls="dashboardsExamples" role="button" aria-expanded="false">
         <i class="material-icons py-2">settings</i>
@@ -64,23 +67,34 @@
       </a>
       <div class="collapse " id="dashboardsExamples">
         <ul class="nav ">
-
+        @can('payment_type')
         <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.paymentType.index') }}">
               <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
               <span class="sidenav-normal  ms-2  ps-1"> Payment Type </span>
             </a>
           </li>
+        @endcan
+        @can('contact')
+        <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.contact.index') }}">
+              <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> Contact </span>
+            </a>
+          </li>
+        @endcan
+        @can('admin_access')
           <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.banners.index') }}">
               <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
               <span class="sidenav-normal  ms-2  ps-1"> Banner </span>
             </a>
           </li>
+
           <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.adsbanners.index') }}">
               <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
-              <span class="sidenav-normal  ms-2  ps-1"> PopUp Ads </span>
+              <span class="sidenav-normal  ms-2  ps-1"> Ads Banner </span>
             </a>
           </li>
           <li class="nav-item ">
@@ -89,11 +103,16 @@
               <span class="sidenav-normal  ms-2  ps-1"> Banner Text </span>
             </a>
           </li>
-         
           <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.promotions.index') }}">
               <span class="sidenav-mini-icon"> <i class="fas fa-gift"></i> </span>
               <span class="sidenav-normal  ms-2  ps-1"> Promotions </span>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.products.index') }}">
+            <span class="sidenav-mini-icon">P</span>
+              <span class="sidenav-normal  ms-2  ps-1"> Product </span>
             </a>
           </li>
           <li class="nav-item ">
@@ -113,6 +132,8 @@
       </div>
     </li>
     @endcan
+
+    <li class="nav-item">
       <a href="{{ route('logout') }}" onclick="event.preventDefault();
       document.getElementById('logout-form').submit();" class="nav-link text-white">
         <span class="sidenav-mini-icon"> <i class="fas fa-right-from-bracket text-white"></i> </span>

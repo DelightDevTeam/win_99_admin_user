@@ -20,10 +20,10 @@ class AuthController extends Controller
 {
     use HttpResponses;
 
+    private const PLAYER_ROLE = 2;
+
     private const ADMIN = 1;
 
-    private const PLAYER_ROLE = 2;
-    
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('phone', 'password');
@@ -82,7 +82,6 @@ class AuthController extends Controller
         return $this->success(new UserResource($user), 'User Register Successfully',
         );
     }
-
     public function logout()
     {
         Auth::user()->currentAccessToken()->delete();
@@ -135,6 +134,7 @@ class AuthController extends Controller
 
     public function profile(ProfileRequest $request)
     {
+
         $player = Auth::user();
         $player->update([
             'name' => $request->name,
@@ -142,12 +142,5 @@ class AuthController extends Controller
         ]);
 
         return $this->success(new PlayerResource($player), 'Update profile');
-    }
-
-    private function generateRandomString()
-    {
-        $randomNumber = mt_rand(10000000, 99999999);
-
-        return 'w-'.$randomNumber;
     }
 }

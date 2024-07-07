@@ -5,6 +5,7 @@ namespace App\Http\Requests\Slot;
 use App\Models\User;
 use App\Services\Slot\SlotWebhookValidator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SlotWebhookRequest extends FormRequest
 {

@@ -30,23 +30,15 @@ class PermissionRoleTableSeeder extends Seeder
             'permission_update',
             'permission_delete',
             'transfer_log',
-            'make_transfer',
-            'game_type_access',
-            'player_access',
             'player_index',
-            'player_create',
-            'player_store',
-            'player_edit',
-            'player_show',
-            'player_update',
-            'player_delete',
-            'transfer_log',
+            'deposit_requests',
+            'withdraw_requests',
             'make_transfer',
             'payment_type',
-            'withdraw_requests',
-            'deposit_requests',
+            'game_type_access',
+            'contact'
         ]);
         Role::findOrFail(1)->permissions()->sync($admin_permissions->pluck('id'));
-
+      
     }
 }
