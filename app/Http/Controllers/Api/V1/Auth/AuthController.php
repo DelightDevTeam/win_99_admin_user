@@ -143,4 +143,11 @@ class AuthController extends Controller
 
         return $this->success(new PlayerResource($player), 'Update profile');
     }
+
+    private function generateRandomString()
+    {
+        $randomNumber = mt_rand(10000000, 99999999);
+
+        return 'w-'.$randomNumber;
+    }
 }
