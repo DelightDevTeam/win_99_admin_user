@@ -38,7 +38,10 @@ class GameController extends Controller
         }])->where('id', $gameTypeID)->where('status', 1)
             ->first();
 
-        return $this->success($gameTypes, $gameLobby);
+        return $this->success([
+            "gameList" => $gameTypes,
+            "gameLobby" => $gameLobby
+        ]);
     }
 
     public function allGameProducts()
