@@ -345,6 +345,10 @@ class ProductTableSeeder extends Seeder
             ],
         ];
 
-        Product::insert($data);
+        //Product::insert($data);
+        foreach ($data as $obj) {
+            Product::create($obj);
+        }
+
     }
 }
