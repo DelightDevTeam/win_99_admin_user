@@ -13,3 +13,14 @@ ASIA_GAMING= There is no GetGameList for ProductID = 1001-ASIA_GAMING with game 
 
 SIMPLE_PLAY= There is no GetGameList for ProductID = 1089-SIMPLE_PLAY with game type = 8-FISHING
 SPORT_BOOK = There is no GetGameList for ProductID = 1104-SSports with game type = 3-SPORT_BOOK
+
+
+Asia Gaming (slot / casino)
+Evolution Gaming 
+PG Soft
+CQ9
+SBO
+Joker
+YeeBet
+SexyGaming
+Real Time Gaming 
