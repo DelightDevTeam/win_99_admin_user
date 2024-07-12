@@ -3,7 +3,7 @@ php -r "file_put_contents('/var/www/html/shwe_dragon_slot_a/storage/logs/laravel
 // created dev branch for kzt
 
 BigGaming remove
-SBO - have no game list /need to use LaunchGame without the gameID
+SBO - have no game list /need to use LaunchGame without the gameID (1012)
 YEE Bet - need to use LaunchGame without the gameID
 Vivo Gaming = There is no GetGameList for ProductID = 1035-VIVO_GAMING with game type = 1-SLOT
 Vivo Gaming = There is no GetGameList for ProductID = 1035-VIVO_GAMING with game type = 2-LIVE_CASINO
@@ -13,6 +13,18 @@ ASIA_GAMING= There is no GetGameList for ProductID = 1001-ASIA_GAMING with game 
 
 SIMPLE_PLAY= There is no GetGameList for ProductID = 1089-SIMPLE_PLAY with game type = 8-FISHING
 SPORT_BOOK = There is no GetGameList for ProductID = 1104-SSports with game type = 3-SPORT_BOOK
+
+SBO =  ProductID - 1012 - gameType - 3 (SPORT_BOOK)
+YEE Bet - ProductID - 1016 - gameType - 2 (LIVE_CASINO)
+Vivo Gaming - ProductID - 1035 - gameType - 1 (slot)
+Vivo Gaming - ProductID - 1035 - gameType - 2 (LIVE_CASINO)
+SPORT_BOOK = ProductID - 1104 - gameType - 3 (SPORT_BOOK)
+SIMPLE_PLAY = ProductID - 1089 - gameType - 8 (FISHING)
+ASIA_GAMING = ProductID - 1001 - gameType - 2 (LIVE_CASINO)
+King 855 = ProductID - 1038 - gameType - 2 (LIVE_CASINO)
+
+
+
 
 
 Asia Gaming (slot / casino)
