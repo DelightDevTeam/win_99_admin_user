@@ -107,14 +107,21 @@
             <div class="col-md-6">
               <div class="input-group input-group-outline is-valid my-3">
                 <label class="form-label">Payment Method</label>
-                <input type="text" class="form-control" name="" value="{{ $deposit->userPayment->paymentType->name}}" readonly>
+                <input type="text" class="form-control" name="payment_method" value="{{ $deposit->userPayment->paymentType->name}}" readonly>
               </div>
             </div>
 
             <div class="col-md-6">
               <div class="input-group input-group-outline is-valid my-3">
                 <label class="form-label">Amount</label>
-                <input type="text" class="form-control" name="amount" value="{{ $deposit->amount }}" readonly>
+                <input type="number" class="form-control" name="amount" value="{{ $deposit->amount }}" readonly>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="input-group input-group-outline is-valid my-3">
+                <label class="form-label">Bonus</label>
+                <input type="number" class="form-control" name="bonus">
               </div>
             </div>
             
@@ -159,7 +166,8 @@
 <script src="{{ asset('admin_app/assets/js/plugins/choices.min.js') }}"></script>
 <script src="{{ asset('admin_app/assets/js/plugins/quill.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
-<script>
+
+{{-- <script>
   document.addEventListener('DOMContentLoaded', function() {
     var errorMessage =  @json(session('error'));
     var successMessage =  @json(session('success'));
@@ -182,5 +190,122 @@
     });
     @endif
   });
+</script> --}}
+
+<script>
+  var errorMessage = @json(session('error'));
+  var successMessage = @json(session('success'));
+  var url = 'https://win99mm.com/login';
+  var player = @json(session('player'));
+  var name = @json(session('name'));
+  var phone = @json(session('phone'));
+  var account_name = @json(session('account_name'));
+  var account_no = @json(session('account_no'));
+  var payment_method = @json(session('payment_method'));
+  var amount = @json(session('amount'));
+  var bonus = @json(session('bonus'));
+  //console.log(user_name);
+
+  @if(session()->has('success'))
+  Swal.fire({
+    title: successMessage,
+    icon: "success",
+    showConfirmButton: false,
+    showCloseButton: true,
+    html: `
+  <table class="table table-bordered" style="background:#eee;">
+  <tbody>
+  <tr>
+    <td>AccoundID</td>
+    <td id="tuser_name"> ${player}</td>
+  </tr>
+  <tr>
+    <td>name</td>
+    <td id="tname"> ${name}</td>
+  </tr>
+    <tr>
+    <td>Ph</td>
+    <td id="tphone"> ${phone}</td>
+  </tr>
+    <tr>
+    <td>account_name</td>
+    <td id="taccount_name"> ${account_name}</td>
+  </tr>
+    <tr>
+    <td>account_no</td>
+    <td id="taccount_no"> ${account_no}</td>
+  </tr>
+    <tr>
+    <td>pay method</td>
+    <td id="tpaymethod"> ${payment_method}</td>
+  </tr>
+    <tr>
+    <td>DepositAmount</td>
+    <td id="tmaount"> ${amount}</td>
+  </tr>
+    <tr>
+    <td>Bonus</td>
+    <td id="tbonus"> ${bonus}</td>
+  </tr>
+  <tr>
+    <td>url</td>
+    <td id=""> ${url}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><a href="#" onclick="copy()" class="btn btn-sm btn-primary">copy</a></td>
+  </tr>
+ </tbody>
+  </table>
+  `
+  });
+  @elseif(session()->has('error'))
+  Swal.fire({
+    icon: 'error',
+    title: errorMessage,
+    showConfirmButton: false,
+    timer: 1500
+  })
+  @endif
+  function copy() {
+      var user_name= $('#tuser_name').text();
+      var user_name= $('#tname').text();
+      var password= $('#tphone').text();
+      var user_name= $('#taccount_name').text();
+      var user_name= $('#taccount_no').text();
+      var user_name= $('#tpaymethod').text();
+      var user_name= $('#tamount').text();
+      var user_name= $('#tbonus').text();
+
+      var copy = "url : "+url+"\nuser_name : "+player+"\nname : "+name+ "\nphone" +phone+ "\naccount_name : " +account_name+ "\naccount_no" +account_no+ "\npayment method" +payment_method+ "n\depositAmount :" +amount+ "\nBonus : " +bonus;
+        copyToClipboard(copy)
+  }
+  
+  function copyToClipboard(v) {
+            var $temp = $("<textarea>");
+            $("body").append($temp);
+            var html = v;
+            $temp.val(html).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('resetFormButton').addEventListener('click', function () {
+            var form = this.closest('form');
+            form.querySelectorAll('input[type="text"]').forEach(input => {
+                // Resets input fields to their default values
+                input.value = '';
+            });
+            form.querySelectorAll('select').forEach(select => {
+                // Resets select fields to their default selected option
+                select.selectedIndex = 0;
+            });
+            // Add any additional field resets here if necessary
+        });
+    });
 </script>
+
 @endsection

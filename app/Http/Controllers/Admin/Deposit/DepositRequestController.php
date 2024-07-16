@@ -46,11 +46,26 @@ class DepositRequestController extends Controller
                 'status' => $request->status,
             ]);
 
+            
             if ($request->status == 1) {
-                app(WalletService::class)->transfer($agent, $player, $request->amount, TransactionName::CreditTransfer);
+            $deposit_amount = $request->amount;
+            $bonus_amount = $request->bonus;
+            $total_amount = $deposit_amount + $bonus_amount;
+            app(WalletService::class)->transfer($agent, $player, $total_amount, TransactionName::CreditTransfer);
             }
 
-            return redirect()->route('admin.agent.deposit')->with('success', 'Deposit request successfully!');
+            // return redirect()->route('admin.agent.deposit')->with('success', 'Deposit request successfully!');
+            return redirect()->back()
+                ->with('success', 'Deposit Updated successfully')
+                ->with('url', env('APP_URL'))
+                ->with('player', $request->player)
+                ->with('name', $request->name)
+                ->with('phone', $request->phone)
+                ->with('account_name', $request->account_name)
+                ->with('account_no', $request->account_no)
+                ->with('payment_method', $request->payment_method)
+                ->with('amount', $request->amount)
+                ->with('bonus', $request->bonus);
         } catch (Exception $e) {
             return redirect()->route('admin.agent.deposit')->with('error', $e->getMessage());
         }
