@@ -6,6 +6,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\Api\V1\BannerController;
 use App\Http\Controllers\Api\V1\ContactController;
 use App\Http\Controllers\Admin\BannerTextController;
+//use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Bank\BankController;
 use App\Http\Controllers\Api\V1\Game\GameController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Api\V1\PromotionController;
 use App\Http\Controllers\Api\V1\Player\WagerController;
 use App\Http\Controllers\Api\V1\Webhook\BonusController;
 use App\Http\Controllers\Api\V1\Webhook\BuyInController;
+use App\Http\Controllers\Api\V2\Auth\AuthLoginController;
 use App\Http\Controllers\Api\V1\Player\DepositController;
 use App\Http\Controllers\Api\V1\Webhook\BuyOutController;
 use App\Http\Controllers\Api\V1\Game\LaunchGameController;
@@ -32,12 +34,13 @@ use App\Http\Controllers\Api\V1\PaymentType\PaymentTypeController;
 use App\Http\Controllers\Api\V1\Player\PlayerTransactionLogController;
 
 //login route post
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthLoginController::class, 'login']);
+Route::post('/register', [AuthLoginController::class, 'register']);
 Route::post('/player-change-password', [AuthController::class, 'playerChangePassword']);
 
 // logout
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/logout', [AuthLoginController::class, 'logout']);
+
 Route::get('promotion', [PromotionController::class, 'index']);
 Route::get('banner', [BannerController::class, 'index']);
 Route::get('popup-ads-banner', [BannerController::class, 'AdsBannerIndex']);
