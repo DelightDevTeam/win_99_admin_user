@@ -26,6 +26,10 @@ class WithDrawController extends Controller
                 return $this->error('', 'လျို့ဝှက်နံပါတ်ကိုက်ညီမှု မရှိပါ။', 401);
             }
 
+            if($player->balanceFloat < $inputs['amount']){
+                return $this->error('','Insufficient Balance','401');
+            }
+
             $withdraw = ModelsWithDrawRequest::create(array_merge(
                 $inputs,
                 [
