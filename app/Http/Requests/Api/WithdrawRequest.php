@@ -26,7 +26,7 @@ class WithdrawRequest extends FormRequest
             'account_name' => ['required'],
             'account_no' => ['required'],
             'payment_type_id' => ['required'],
-            'amount' => ['required', 'integer'],
+            'amount' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
