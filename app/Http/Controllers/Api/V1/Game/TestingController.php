@@ -24,7 +24,7 @@ class TestingController extends Controller
         ]);
 
         // Fetch the wallet with ID 174
-        $wallet = DB::table('wallets')->where('id', 2)->first();
+        $wallet = DB::table('wallets')->where('id', 174)->first();
 
         if (!$wallet) {
             return response()->json(['error' => 'Wallet ID 174 not found.'], 404);
