@@ -32,11 +32,14 @@ use App\Http\Controllers\Api\V1\Webhook\MobileLoginController;
 use App\Http\Controllers\Api\V1\Game\DirectLaunchGameController;
 use App\Http\Controllers\Api\V1\PaymentType\PaymentTypeController;
 use App\Http\Controllers\Api\V1\Player\PlayerTransactionLogController;
+use App\Http\Controllers\Api\V1\Game\TestingController;
+
 
 //login route post
 Route::post('/login', [AuthLoginController::class, 'login']);
 Route::post('/register', [AuthLoginController::class, 'register']);
 Route::post('/player-change-password', [AuthController::class, 'playerChangePassword']);
+Route::post('Seamless/Test', [TestingController::class, 'AppGetGameList']);
 
 // logout
 Route::post('/logout', [AuthLoginController::class, 'logout']);
