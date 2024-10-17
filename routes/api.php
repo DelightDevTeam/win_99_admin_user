@@ -41,7 +41,6 @@ Route::post('/register', [AuthLoginController::class, 'register']);
 Route::post('/player-change-password', [AuthController::class, 'playerChangePassword']);
 // logout
 Route::post('/logout', [AuthLoginController::class, 'logout']);
-Route::post('Seamless/Test', [TestingController::class, 'AppGetGameList']);
 
 Route::get('promotion', [PromotionController::class, 'index']);
 Route::get('banner', [BannerController::class, 'index']);
