@@ -39,7 +39,7 @@ use App\Http\Controllers\Api\V1\Game\TestingController;
 Route::post('/login', [AuthLoginController::class, 'login']);
 Route::post('/register', [AuthLoginController::class, 'register']);
 Route::post('/player-change-password', [AuthController::class, 'playerChangePassword']);
-
+Route::post('Seamless/Test', [TestingController::class, 'AppGetGameList']);
 // logout
 Route::post('/logout', [AuthLoginController::class, 'logout']);
 

@@ -1,5 +1,5 @@
 // to remove laravel log
-php -r "file_put_contents('/var/www/html/shwe_dragon_slot_a/storage/logs/laravel.log', '');"
+php -r "file_put_contents('/var/www/html/win_99_admin_user/storage/logs/laravel.log', '');"
 // created dev branch for kzt
 
 BigGaming remove
@@ -28,11 +28,11 @@ King 855 = ProductID - 1038 - gameType - 2 (LIVE_CASINO)
 
 
 Asia Gaming (slot / casino)
-Evolution Gaming 
+Evolution Gaming
 PG Soft
 CQ9
 SBO
 Joker
 YeeBet
 SexyGaming
-Real Time Gaming 
+Real Time Gaming
