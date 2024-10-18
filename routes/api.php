@@ -54,7 +54,9 @@ Route::get('gamelist/{product_id}/{game_type_id}', [GameController::class, 'game
 Route::get('hotgamelist', [GameController::class, 'HotgameList']);
 Route::post('Seamless/PullReport', [LaunchGameController::class, 'pullReport']);
 Route::get('contact', [ContactController::class, 'index']);
-Route::get('/test', TestController::class);
+//Route::get('/test', TestController::class);
+Route::post('Seamless/Test', [TestingController::class, 'AppGetGameList']);
+
 
 Route::group(['prefix' => 'Seamless'], function () {
     Route::post('GetBalance', [GetBalanceController::class, 'getBalance']);
