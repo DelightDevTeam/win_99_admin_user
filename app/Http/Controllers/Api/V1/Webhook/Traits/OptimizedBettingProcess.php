@@ -113,7 +113,7 @@ trait OptimizedBettingProcess
      * Creates wagers in chunks and inserts them along with related seamless transactions.
      *
      */
-    // current us 
+    // current us
     public function createWagerTransactions(array $betBatch, SeamlessEvent $event)
 {
     $retryCount = 0;
@@ -139,24 +139,31 @@ trait OptimizedBettingProcess
 
                     // If transaction is an instance of the RequestTransaction object, extract the data
                     if ($transaction instanceof \App\Services\Slot\Dto\RequestTransaction) {
-                        $transactionData = [
-                            'Status' => $transaction->Status,
-                            'ProductID' => $transaction->ProductID,
-                            'GameType' => $transaction->GameType,
-                            'TransactionID' => $transaction->TransactionID,
-                            'WagerID' => $transaction->WagerID,
-                            'BetAmount' => $transaction->BetAmount,
-                            'TransactionAmount' => $transaction->TransactionAmount,
-                            'PayoutAmount' => $transaction->PayoutAmount,
-                            'ValidBetAmount' => $transaction->ValidBetAmount,
-                            'Rate' => $transaction->Rate,
-                            'ActualGameTypeID' => $transaction->ActualGameTypeID,
-                            'ActualProductID' => $transaction->ActualProductID,
-                        ];
-                    } else {
-                        Log::error('Invalid transaction data format.', ['transaction' => $transaction]);
-                        throw new \Exception('Invalid transaction data format.');
-                    }
+    // Map the available fields and ensure ActualGameTypeID and ActualProductID are mapped from GameType and ProductID
+    $transactionData = [
+        'Status' => $transaction->Status,
+        'ProductID' => $transaction->ProductID,
+        'GameType' => $transaction->GameType,
+        'TransactionID' => $transaction->TransactionID,
+        'WagerID' => $transaction->WagerID,
+        'BetAmount' => $transaction->BetAmount,
+        'TransactionAmount' => $transaction->TransactionAmount,
+        'PayoutAmount' => $transaction->PayoutAmount,
+        'ValidBetAmount' => $transaction->ValidBetAmount,
+        'Rate' => $transaction->Rate,
+
+        // Map GameType and ProductID if ActualGameTypeID or ActualProductID are null
+        'ActualGameTypeID' => $transaction->ActualGameTypeID ?? $transaction->GameType,
+        'ActualProductID' => $transaction->ActualProductID ?? $transaction->ProductID,
+    ];
+
+    // Log the transaction data if needed
+    Log::info('Mapped transaction data', ['transactionData' => $transactionData]);
+
+} else {
+    Log::error('Invalid transaction data format.', ['transaction' => $transaction]);
+    throw new \Exception('Invalid transaction data format.');
+}
 
                     // Log extracted transaction data
                     Log::info('Extracted transaction data', ['transactionData' => $transactionData]);
@@ -232,7 +239,7 @@ trait OptimizedBettingProcess
     } while ($retryCount < $maxRetries);
 }
 
-    //still use 
+    //still use
 //     public function createWagerTransactions(array $betBatch, SeamlessEvent $event)
 // {
 //     $retryCount = 0;
