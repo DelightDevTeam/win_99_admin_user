@@ -15,7 +15,7 @@ class ArchiveOldWagers extends Command
     public function handle()
     {
         // Define the date range from 20 days ago starting from the beginning of the day to now
-        $startOfDay = now()->subDays(1)->startOfDay();  // Start of the day 20 days ago
+        $startOfDay = now()->subDays(90)->startOfDay();  // Start of the day 20 days ago
         $endOfDay = now();  // Current time
 
         try {
