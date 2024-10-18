@@ -33,6 +33,7 @@ use App\Http\Controllers\Api\V1\Game\DirectLaunchGameController;
 use App\Http\Controllers\Api\V1\PaymentType\PaymentTypeController;
 use App\Http\Controllers\Api\V1\Player\PlayerTransactionLogController;
 use App\Http\Controllers\Api\V1\Game\TestingController;
+use App\Http\Controllers\Api\V1\Webhook\VersionNewPlaceBetController;
 
 
 //login route post
@@ -63,7 +64,8 @@ Route::group(['prefix' => 'Seamless'], function () {
     Route::post('GetGameList', [LaunchGameController::class, 'getGameList']);
     Route::post('GameResult', [GameResultController::class, 'gameResult']);
     Route::post('Rollback', [RollbackController::class, 'rollback']);
-    Route::post('PlaceBet', [PlaceBetController::class, 'placeBet']);
+    //Route::post('PlaceBet', [PlaceBetController::class, 'placeBet']);
+    Route::post('PlaceBet', [VersionNewPlaceBetController::class, 'placeBetNew']);
     Route::post('CancelBet', [CancelBetController::class, 'cancelBet']);
     Route::post('BuyIn', [BuyInController::class, 'buyIn']);
     Route::post('BuyOut', [BuyOutController::class, 'buyOut']);
