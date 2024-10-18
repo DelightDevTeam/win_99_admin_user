@@ -20,6 +20,7 @@ class AuthLoginController extends Controller
     use HttpResponses;
 
     private const PLAYER_ROLE = 2;
+
     private const ADMIN = 1;
 
     public function login(LoginRequest $request)
@@ -71,7 +72,7 @@ class AuthLoginController extends Controller
                 'required',
                 'regex:/^(09)[0-9]{7,11}$/',
                 'numeric',
-                'unique:users,phone'
+                'unique:users,phone',
             ],
             'password' => ['required', 'confirmed'],
         ]);

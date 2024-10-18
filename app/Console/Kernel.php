@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\PullReport::class,
         Commands\ArchiveOldWagers::class,
-        Commands\DeleteOldWagerBackups::class
+        Commands\DeleteOldWagerBackups::class,
     ];
 
     /**

@@ -64,7 +64,7 @@ class AuthController extends Controller
                 'required',
                 'regex:/^(09)[0-9]{7,11}$/',
                 'numeric',
-                'unique:users,phone'
+                'unique:users,phone',
             ],
             'password' => ['required', 'confirmed'],
         ]);
@@ -82,6 +82,7 @@ class AuthController extends Controller
         return $this->success(new UserResource($user), 'User Register Successfully',
         );
     }
+
     public function logout()
     {
         Auth::user()->currentAccessToken()->delete();

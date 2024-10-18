@@ -7,6 +7,9 @@ use App\Enums\TransactionName;
 use App\Http\Controllers\Api\V1\Webhook\Traits\OptimizedBettingProcess;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Slot\SlotWebhookRequest;
+use App\Models\Admin\GameType;
+use App\Models\Admin\GameTypeProduct;
+use App\Models\Admin\Product;
 use App\Models\User;
 use App\Services\Slot\SlotWebhookService;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +20,7 @@ class VersionNewPlaceBetController extends Controller
 {
     use OptimizedBettingProcess;
 
-     // current running method
+    // current running method
     public function placeBetNew(SlotWebhookRequest $request)
     {
         $userId = $request->getMember()->id;
@@ -39,7 +42,7 @@ class VersionNewPlaceBetController extends Controller
         if (! $lock) {
             return response()->json([
                 'message' => 'Another transaction is currently processing. Please try again later.',
-                'userId' => $userId
+                'userId' => $userId,
             ], 409); // 409 Conflict
         }
 
@@ -49,6 +52,7 @@ class VersionNewPlaceBetController extends Controller
         if ($validator->fails()) {
             // Release Redis lock and return validation error response
             Redis::del("wallet:lock:$userId");
+
             return $validator->getResponse();
         }
 
@@ -56,8 +60,9 @@ class VersionNewPlaceBetController extends Controller
         $transactions = $validator->getRequestTransactions();
 
         // Check if the transactions are in the expected format
-        if (!is_array($transactions) || empty($transactions)) {
+        if (! is_array($transactions) || empty($transactions)) {
             Redis::del("wallet:lock:$userId");
+
             return response()->json([
                 'message' => 'Invalid transaction data format.',
                 'details' => $transactions,  // Provide details about the received data for debugging
@@ -76,26 +81,55 @@ class VersionNewPlaceBetController extends Controller
 
             // Process each transaction by transferring the amount
             foreach ($transactions as $transaction) {
-                // Assuming 'from' user is the one placing the bet and 'to' is the admin or system wallet
                 $fromUser = $request->getMember();
-                $toUser = User::adminUser();  // Admin or central system wallet
+                $toUser = User::adminUser();
+
+                // Fetch the rate from GameTypeProduct before calling processTransfer()
+                $game_type = GameType::where('code', $transaction->GameType)->first();
+                $product = Product::where('code', $transaction->ProductID)->first();
+                $game_type_product = GameTypeProduct::where('game_type_id', $game_type->id)
+                    ->where('product_id', $product->id)
+                    ->first();
+                $rate = $game_type_product->rate;
 
                 $meta = [
-                    'wager_id' => $transaction->WagerID,               // Use object property access
+                    'wager_id' => $transaction->WagerID,
                     'event_id' => $request->getMessageID(),
-                    'seamless_transaction_id' => $transaction->TransactionID,  // Use object property access
+                    'seamless_transaction_id' => $transaction->TransactionID,
                 ];
 
-                // Call processTransfer for each transaction
+                // Call processTransfer with the correct rate
                 $this->processTransfer(
-                    $fromUser,                        // From user
-                    $toUser,                          // To user (admin/system wallet)
-                    TransactionName::Stake,           // Transaction name (e.g., Stake)
-                    $transaction->TransactionAmount,  // Use object property access for TransactionAmount
-                    $transaction->Rate,               // Use object property access for Rate
-                    $meta                             // Meta data (wager id, event id, etc.)
+                    $fromUser,
+                    $toUser,
+                    TransactionName::Stake,
+                    $transaction->TransactionAmount,
+                    $rate,  // Use the fetched rate
+                    $meta
                 );
             }
+
+            // foreach ($transactions as $transaction) {
+            //     // Assuming 'from' user is the one placing the bet and 'to' is the admin or system wallet
+            //     $fromUser = $request->getMember();
+            //     $toUser = User::adminUser();  // Admin or central system wallet
+
+            //     $meta = [
+            //         'wager_id' => $transaction->WagerID,               // Use object property access
+            //         'event_id' => $request->getMessageID(),
+            //         'seamless_transaction_id' => $transaction->TransactionID,  // Use object property access
+            //     ];
+
+            //     // Call processTransfer for each transaction
+            //     $this->processTransfer(
+            //         $fromUser,                        // From user
+            //         $toUser,                          // To user (admin/system wallet)
+            //         TransactionName::Stake,           // Transaction name (e.g., Stake)
+            //         $transaction->TransactionAmount,  // Use object property access for TransactionAmount
+            //         $transaction->Rate,               // Use object property access for Rate
+            //         $meta                             // Meta data (wager id, event id, etc.)
+            //     );
+            // }
 
             // Refresh balance after transactions
             $request->getMember()->wallet->refreshBalance();
@@ -123,7 +157,6 @@ class VersionNewPlaceBetController extends Controller
     }
 
     /**
-
    *  this method is not to reduce admin balance
  */
     //  public function placeBetNew(SlotWebhookRequest $request)
@@ -214,78 +247,78 @@ class VersionNewPlaceBetController extends Controller
 
     // this method is no error for staging and production
 
-//    public function placeBetNew(SlotWebhookRequest $request)
-//     {
-//         $userId = $request->getMember()->id;
+    //    public function placeBetNew(SlotWebhookRequest $request)
+    //     {
+    //         $userId = $request->getMember()->id;
 
-//         // Try to acquire a Redis lock for the user's wallet
-//         $lock = Redis::set("wallet:lock:$userId", true, 'EX', 30, 'NX'); // 10 seconds lock
-//         if (! $lock) {
-//             return response()->json([
-//                 'message' => 'The wallet is currently being updated. Please try again later.',
-//             ], 409); // 409 Conflict
-//         }
+    //         // Try to acquire a Redis lock for the user's wallet
+    //         $lock = Redis::set("wallet:lock:$userId", true, 'EX', 30, 'NX'); // 10 seconds lock
+    //         if (! $lock) {
+    //             return response()->json([
+    //                 'message' => 'The wallet is currently being updated. Please try again later.',
+    //             ], 409); // 409 Conflict
+    //         }
 
-//         // Validate the structure of the request
-//         $validator = $request->check();
+    //         // Validate the structure of the request
+    //         $validator = $request->check();
 
-//         if ($validator->fails()) {
-//             // Release Redis lock and return validation error response
-//             Redis::del("wallet:lock::$userId");
+    //         if ($validator->fails()) {
+    //             // Release Redis lock and return validation error response
+    //             Redis::del("wallet:lock::$userId");
 
-//             return $validator->getResponse();
-//         }
+    //             return $validator->getResponse();
+    //         }
 
-//         // Retrieve transactions from the request
-//         $transactions = $validator->getRequestTransactions();
+    //         // Retrieve transactions from the request
+    //         $transactions = $validator->getRequestTransactions();
 
-//         // Debugging: Log the transactions to check the structure
-//         Log::info('Transactions received:', ['transactions' => $transactions]);
+    //         // Debugging: Log the transactions to check the structure
+    //         Log::info('Transactions received:', ['transactions' => $transactions]);
 
-//         // Check if the transactions are in the expected format
-//         if (!is_array($transactions) || empty($transactions)) {
-//             Redis::del("wallet:lock::$userId");
+    //         // Check if the transactions are in the expected format
+    //         if (!is_array($transactions) || empty($transactions)) {
+    //             Redis::del("wallet:lock::$userId");
 
-//             return response()->json([
-//                 'message' => 'Invalid transaction data format.',
-//                 'details' => $transactions,  // Provide details about the received data for debugging
-//             ], 400);  // 400 Bad Request
-//         }
+    //             return response()->json([
+    //                 'message' => 'Invalid transaction data format.',
+    //                 'details' => $transactions,  // Provide details about the received data for debugging
+    //             ], 400);  // 400 Bad Request
+    //         }
 
-//         $before_balance = $request->getMember()->balanceFloat;
+    //         $before_balance = $request->getMember()->balanceFloat;
 
-//         DB::beginTransaction();
-//         try {
-//             // Create and store the event in the database
-//             $event = $this->createEvent($request);
+    //         DB::beginTransaction();
+    //         try {
+    //             // Create and store the event in the database
+    //             $event = $this->createEvent($request);
 
-//             // Insert bets using chunking for better performance
-//             $message = $this->insertBets($transactions, $event);  // Insert bets in chunks
+    //             // Insert bets using chunking for better performance
+    //             $message = $this->insertBets($transactions, $event);  // Insert bets in chunks
 
-//             // Refresh balance after transactions
-//             $request->getMember()->wallet->refreshBalance();
-//             $after_balance = $request->getMember()->balanceFloat;
+    //             // Refresh balance after transactions
+    //             $request->getMember()->wallet->refreshBalance();
+    //             $after_balance = $request->getMember()->balanceFloat;
 
-//             DB::commit();
+    //             DB::commit();
 
-//             Redis::del("wallet:lock::$userId");
+    //             Redis::del("wallet:lock::$userId");
 
-//             // Return success response
-//             return SlotWebhookService::buildResponse(
-//                 SlotWebhookResponseCode::Success,
-//                 $after_balance,
-//                 $before_balance
-//             );
-//         } catch (\Exception $e) {
-//             DB::rollBack();
-//             Redis::del("wallet:lock::$userId");
-//             Log::error('Error during placeBet', ['error' => $e]);
+    //             // Return success response
+    //             return SlotWebhookService::buildResponse(
+    //                 SlotWebhookResponseCode::Success,
+    //                 $after_balance,
+    //                 $before_balance
+    //             );
+    //         } catch (\Exception $e) {
+    //             DB::rollBack();
+    //             Redis::del("wallet:lock::$userId");
+    //             Log::error('Error during placeBet', ['error' => $e]);
 
-//             return response()->json([
-//                 'message' => $e->getMessage(),
-//             ], 500);
-//         }
-//     }
+    //             return response()->json([
+    //                 'message' => $e->getMessage(),
+    //             ], 500);
+    //         }
+    //     }
 
     // public function placeBetNew(SlotWebhookRequest $request)
     // {

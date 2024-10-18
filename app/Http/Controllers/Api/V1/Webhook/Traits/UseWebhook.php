@@ -77,10 +77,10 @@ trait UseWebhook
             }
 
             $game_type_product = GameTypeProduct::where('game_type_id', $game_type->id)
-                    ->where('product_id', $product->id)
-                    ->first();
+                ->where('product_id', $product->id)
+                ->first();
 
-                $rate = $game_type_product->rate;
+            $rate = $game_type_product->rate;
             //$rate = 0;
 
             $seamless_transactions[] = $event->transactions()->create([

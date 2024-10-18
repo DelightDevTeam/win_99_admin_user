@@ -46,12 +46,11 @@ class DepositRequestController extends Controller
                 'status' => $request->status,
             ]);
 
-            
             if ($request->status == 1) {
-            $deposit_amount = $request->amount;
-            $bonus_amount = $request->bonus;
-            $total_amount = $deposit_amount + $bonus_amount;
-            app(WalletService::class)->transfer($agent, $player, $total_amount, TransactionName::CreditTransfer);
+                $deposit_amount = $request->amount;
+                $bonus_amount = $request->bonus;
+                $total_amount = $deposit_amount + $bonus_amount;
+                app(WalletService::class)->transfer($agent, $player, $total_amount, TransactionName::CreditTransfer);
             }
 
             // return redirect()->route('admin.agent.deposit')->with('success', 'Deposit request successfully!');

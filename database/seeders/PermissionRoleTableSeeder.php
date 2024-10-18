@@ -36,9 +36,9 @@ class PermissionRoleTableSeeder extends Seeder
             'make_transfer',
             'payment_type',
             'game_type_access',
-            'contact'
+            'contact',
         ]);
         Role::findOrFail(1)->permissions()->sync($admin_permissions->pluck('id'));
-      
+
     }
 }

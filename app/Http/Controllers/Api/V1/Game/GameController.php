@@ -39,8 +39,8 @@ class GameController extends Controller
             ->first();
 
         return $this->success([
-            "gameList" => $gameTypes,
-            "gameLobby" => $gameLobby
+            'gameList' => $gameTypes,
+            'gameLobby' => $gameLobby,
         ]);
     }
 
