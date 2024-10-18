@@ -76,7 +76,12 @@ trait UseWebhook
                 throw new Exception("Product not found for {$requestTransaction->ProductID}");
             }
 
-            $rate = 0;
+            $game_type_product = GameTypeProduct::where('game_type_id', $game_type->id)
+                    ->where('product_id', $product->id)
+                    ->first();
+
+                $rate = $game_type_product->rate;
+            //$rate = 0;
 
             $seamless_transactions[] = $event->transactions()->create([
                 'user_id' => $event->user_id,

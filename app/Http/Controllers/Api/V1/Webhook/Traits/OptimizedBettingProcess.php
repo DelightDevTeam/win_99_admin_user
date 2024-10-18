@@ -114,7 +114,7 @@ trait OptimizedBettingProcess
      *
      */
     // current us
-    public function createWagerTransactions(array $betBatch, SeamlessEvent $event)
+        public function createWagerTransactions(array $betBatch, SeamlessEvent $event) 
 {
     $retryCount = 0;
     $maxRetries = 5;
@@ -139,31 +139,31 @@ trait OptimizedBettingProcess
 
                     // If transaction is an instance of the RequestTransaction object, extract the data
                     if ($transaction instanceof \App\Services\Slot\Dto\RequestTransaction) {
-    // Map the available fields and ensure ActualGameTypeID and ActualProductID are mapped from GameType and ProductID
-    $transactionData = [
-        'Status' => $transaction->Status,
-        'ProductID' => $transaction->ProductID,
-        'GameType' => $transaction->GameType,
-        'TransactionID' => $transaction->TransactionID,
-        'WagerID' => $transaction->WagerID,
-        'BetAmount' => $transaction->BetAmount,
-        'TransactionAmount' => $transaction->TransactionAmount,
-        'PayoutAmount' => $transaction->PayoutAmount,
-        'ValidBetAmount' => $transaction->ValidBetAmount,
-        'Rate' => $transaction->Rate,
+                        // Map the available fields and ensure ActualGameTypeID and ActualProductID are mapped from GameType and ProductID
+                        $transactionData = [
+                            'Status' => $transaction->Status,
+                            'ProductID' => $transaction->ProductID,
+                            'GameType' => $transaction->GameType,
+                            'TransactionID' => $transaction->TransactionID,
+                            'WagerID' => $transaction->WagerID,
+                            'BetAmount' => $transaction->BetAmount,
+                            'TransactionAmount' => $transaction->TransactionAmount,
+                            'PayoutAmount' => $transaction->PayoutAmount,
+                            'ValidBetAmount' => $transaction->ValidBetAmount,
+                            'Rate' => $transaction->Rate,
 
-        // Map GameType and ProductID if ActualGameTypeID or ActualProductID are null
-        'ActualGameTypeID' => $transaction->ActualGameTypeID ?? $transaction->GameType,
-        'ActualProductID' => $transaction->ActualProductID ?? $transaction->ProductID,
-    ];
+                            // Map GameType and ProductID if ActualGameTypeID or ActualProductID are null
+                            'ActualGameTypeID' => $transaction->ActualGameTypeID ?? $transaction->GameType,
+                            'ActualProductID' => $transaction->ActualProductID ?? $transaction->ProductID,
+                        ];
 
-    // Log the transaction data if needed
-    Log::info('Mapped transaction data', ['transactionData' => $transactionData]);
+                        // Log the transaction data if needed
+                        Log::info('Mapped transaction data', ['transactionData' => $transactionData]);
 
-} else {
-    Log::error('Invalid transaction data format.', ['transaction' => $transaction]);
-    throw new \Exception('Invalid transaction data format.');
-}
+                    } else {
+                        Log::error('Invalid transaction data format.', ['transaction' => $transaction]);
+                        throw new \Exception('Invalid transaction data format.');
+                    }
 
                     // Log extracted transaction data
                     Log::info('Extracted transaction data', ['transactionData' => $transactionData]);
@@ -174,8 +174,30 @@ trait OptimizedBettingProcess
                     // Log wager existence check
                     Log::info('Wager existence check', ['existingWager' => $existingWager]);
 
+                    // Fetch game_type and product
+                    $game_type = GameType::where('code', $transactionData['GameType'])->first();
+                    if (!$game_type) {
+                        throw new \Exception("Game type not found for {$transactionData['GameType']}");
+                    }
+
+                    $product = Product::where('code', $transactionData['ProductID'])->first();
+                    if (!$product) {
+                        throw new \Exception("Product not found for {$transactionData['ProductID']}");
+                    }
+
+                    // Fetch the rate from GameTypeProduct
+                    $game_type_product = GameTypeProduct::where('game_type_id', $game_type->id)
+                        ->where('product_id', $product->id)
+                        ->first();
+                    if (!$game_type_product) {
+                        throw new \Exception('GameTypeProduct combination not found.');
+                    }
+
+                    $rate = $game_type_product->rate;  // Fetch rate for this transaction
+                    Log::info('Fetched rate for transaction', ['rate' => $rate]);
+
+                    // If wager doesn't exist, prepare data for batch insert
                     if (!$existingWager) {
-                        // Collect wager data for batch insert
                         $wagerData[] = [
                             'user_id' => $userId,  // Use user_id from the SeamlessEvent
                             'seamless_wager_id' => $transactionData['WagerID'],
@@ -185,14 +207,14 @@ trait OptimizedBettingProcess
                         ];
                     }
 
-                    // Collect seamless transaction data for batch insert
+                    // Prepare seamless transaction data for batch insert
                     $seamlessTransactionsData[] = [
                         'user_id' => $userId,  // Use user_id from the SeamlessEvent
                         'wager_id' => $existingWager ? $existingWager->id : null,
                         'game_type_id' => $transactionData['ActualGameTypeID'],
                         'product_id' => $transactionData['ActualProductID'],
                         'seamless_transaction_id' => $transactionData['TransactionID'],
-                        'rate' => $transactionData['Rate'],
+                        'rate' => $rate,  // Set the fetched rate here
                         'transaction_amount' => $transactionData['TransactionAmount'],
                         'bet_amount' => $transactionData['BetAmount'],
                         'valid_amount' => $transactionData['ValidBetAmount'],
@@ -238,6 +260,7 @@ trait OptimizedBettingProcess
         }
     } while ($retryCount < $maxRetries);
 }
+
 
     //still use
 //     public function createWagerTransactions(array $betBatch, SeamlessEvent $event)
