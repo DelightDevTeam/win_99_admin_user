@@ -15,6 +15,10 @@ use App\Services\Slot\SlotWebhookService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Http\Request;
+use App\Services\WalletService;
+
+
 
 class VersionNewPlaceBetController extends Controller
 {
