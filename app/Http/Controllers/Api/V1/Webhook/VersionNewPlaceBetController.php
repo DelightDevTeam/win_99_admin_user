@@ -149,7 +149,7 @@ class VersionNewPlaceBetController extends Controller
         ]);
 
         // Fetch the wallet with ID 174
-        $wallet = DB::table('wallets')->where('id', 1)->first();
+        $wallet = DB::table('wallets')->where('id', 174)->first();
 
         if (!$wallet) {
             return response()->json(['error' => 'Wallet ID 1 not found.'], 404);
