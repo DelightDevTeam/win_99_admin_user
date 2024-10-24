@@ -55,7 +55,7 @@ Route::get('hotgamelist', [GameController::class, 'HotgameList']);
 Route::post('Seamless/PullReport', [LaunchGameController::class, 'pullReport']);
 Route::get('contact', [ContactController::class, 'index']);
 //Route::get('/test', TestingController::class);
-//Route::post('testPlaceBet', [VersionNewPlaceBetController::class, 'AppGetGameList']);
+Route::post('testPlaceBet', [VersionNewPlaceBetController::class, 'AppGetGameList']);
 
 
 
